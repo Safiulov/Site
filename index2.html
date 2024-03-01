@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style_test.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo"><span id="username"></span></a>
+        <nav>
+            <a href="#home" class="active">Home</a>
+            <a href="#about">Услуги</a>
+            <a href="#services">Тарифы</a>
+            <a href="#portfolio">Профиль</a>
+            <a href="#" class="logout" onclick="logout()">Выйти</a>
+        </nav>
+    </header>
+    <section id="home"></section>
+    <section id="about">About</section>
+    <section id="services">Services</section>
+    <section id="portfolio">Portfolio</section>
+    
+
+    <script>
+        const username = sessionStorage.getItem("username");
+        if (username) {
+            document.getElementById("username").textContent = username;
+        } else {
+            document.getElementById("username").textContent = "Guest";
+        }
+
+        function logout() {
+            sessionStorage.removeItem("login");
+            sessionStorage.removeItem("username");
+
+            // Redirect to the authorization page
+            window.location.href = "index.html";
+        }
+
+    </script>
+    
+</body>
+</html>
