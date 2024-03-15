@@ -16,8 +16,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #e8e8e8;
-    background-image: url('https://catherineasquithgallery.com/uploads/posts/2023-01/1674277679_catherineasquithgallery-com-p-serii-fon-dlya-lendinga-foto-7.jpg');
+    background-image: url('https://catherineasquithgallery.com/uploads/posts/2021-02/1614382479_11-p-mashini-na-svetlom-fone-13.jpg');
+   image-rendering: optimizeSpeed;
     background-size: cover;
     
 }
@@ -26,7 +26,7 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: #2d0435;
+    background-color: #0d0d0e8a;
     max-height: 900px;
     width: 60%;
     overflow: hidden;
@@ -113,7 +113,7 @@ label {
 
 
 .register {
-    background: #eee;
+    background: rgba(255, 255, 255, 0.984);
     border-radius: 60% / 10%;
     transition: .6s ease-in-out;
 }
@@ -129,7 +129,7 @@ label {
 }
 
 .register label {
-    color: #573b8a;
+    color: #000000ee;
     transform: scale(.5);
 }
 
@@ -164,7 +164,7 @@ label {
     height: 40px;
     margin: 15px auto 10%;
     color: #fff;
-    background: #44225f;
+    background: #2e2727de;
     font-size: 1rem; 
     font-weight: bold;
     border: none;
@@ -174,7 +174,7 @@ label {
 }
 
 .form button:hover {
-    background-color: #ffffff;
+    background-color: #1f1f1f7e;
 }
 
 

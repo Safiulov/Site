@@ -2,45 +2,287 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style_test.css">
-    <title>Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style_test.css">
+  <title>Dashboard</title>
 </head>
+
 <body>
-    <header>
-        <a href="#" class="logo"><span id="username"></span></a>
-        <nav>
-            <a href="#home" class="active">Home</a>
-            <a href="#about">Услуги</a>
-            <a href="#services">Тарифы</a>
-            <a href="#portfolio">Профиль</a>
-            <a href="#" class="logout" onclick="logout()">Выйти</a>
-        </nav>
-    </header>
-    <section id="home"></section>
-    <section id="about">About</section>
-    <section id="services">Services</section>
-    <section id="portfolio">Portfolio</section>
-    
-
+  <header>
+    <a href="#" class="logo"><span id="phoneNumber"></span></a>
+    <nav>
+      <a href="#home">Главная</a>
+      <a href="#about">Тарифы</a>
+      <a href="#services">Услуги</a>
+      <a href="#contact">Контакты</a>
+      <a href="#" onclick="logout()">Выйти</a>
+    </nav>
+  </header>
+  <main>
     <script>
-        const username = sessionStorage.getItem("username");
-        if (username) {
-            document.getElementById("username").textContent = username;
-        } else {
-            document.getElementById("username").textContent = "Guest";
-        }
-
-        function logout() {
-            sessionStorage.removeItem("login");
-            sessionStorage.removeItem("username");
-
-            // Redirect to the authorization page
-            window.location.href = "index.html";
-        }
-
+      
     </script>
+    <section id="home">
+
+      <p>Главная страница</p>
+    </section>
+    <section id="about">
+      <h1>Тарифы</h1>
+
+      <div class="card-container">
+        <div class="card">
+          <h2>Card 1</h2>
+          <p>This is the description of Card 1.</p>
+          <p>Price: $9.99</p>
+        </div>
+        <div class="card">
+          <h2>Card 2</h2>
+          <p>This is the description of Card 2.</p>
+          <p>Price: $19.99</p>
+        </div>
+        <div class="card">
+          <h2>Card 3</h2>
+          <p>This is the description of Card 3.</p>
+          <p>Price: $29.99</p>
+        </div>
+        <div class="card">
+          <h2>Card 4</h2>
+          <p>This is the description of Card 4.</p>
+          <p>Price: $39.99</p>
+        </div>
+        <div class="card">
+          <h2>Card 5</h2>
+          <p>This is the description of Card 5.</p>
+          <p>Price: $70.99</p>
+        </div>
+
+
+
+      </div>
+    </section>
+    <section id="services">
+      <h1>Наши услуги</h1>
+      <div class="services-container">
+        <div class="service-card" title="Тент-чехол для машины"
+          style="background-image: url('https://vatanbranda.com/wp-content/uploads/2021/01/portatif-araba-cadiri.jpg');">
+          <h2>Тент-чехол для машины на стоянке</h2>
+          <p>Мы предлагаем услугу по защите автомобиля с помощью тент-чехлов на стоянке, которые будет защищать вашу
+            машину от непогоды и механических повреждений.
+            Тент-чехол будет идеально подходить для автомобилей, мотоциклов и других транспортных средств.</p>
+        </div>
+        <div class="service-card" title="Подкачка"
+          style="background-image: url('https://img.freepik.com/free-photo/technician-is-inflate-car-tire-car-maintenance-service-transportation-safety_1150-18090.jpg?w=1380&t=st=1710355673~exp=1710356273~hmac=b17e04a2399e3b2d5bdce7606f5250dfae1f6143431baad2be162feafa83ff04');">
+          <h2>Подкачка</h2>
+          <p>Мы предлагаем услугу по подкачке шин на стоянке, которая будет помогать продлить срок службы ваших шин и
+            обеспечить безопасность вождения.
+            Подкачка шин будет проводиться с использованием современных станков и высококвалифицированных специалистов.
+            Услуга подкачки шин будет подходить для автомобилей, мотоциклов и других транспортных средств</p>
+
+        </div>
+        <div class="service-card" title="Мойка"
+          style="background-image: url('https://img.freepik.com/free-photo/beautiful-car-washing-service_23-2149212222.jpg?t=st=1710356117~exp=1710359717~hmac=d642b88ca1a0c7f459748d7e142aa7b7b759e19c790827ad7aa752aff3c98fa8&w=740');">
+          <h2>Мойка</h2>
+          <p>Мы предлагаем услугу полной мойки автомобиля, которая включает в себя тщательную очистку всех частей вашего
+            автомобиля. Наша мойка включает в себя ручную очистку кузова, очистку колес, стекол и подножек. Мы
+            используем только экологически чистые и безопасные для автомобиля средства. Полная мойка автомобиля поможет
+            сохранить внешний вид вашего автомобиля и продлить срок его службы</p>
+        </div>
+
+
+      </div>
+
+    </section>
+
+    <section id="contact">
+
+      <head>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet-easybutton@2.4.0/src/easy-button.js"></script>
+        <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+      </head>
+
+      <body>
+        <div id="map" style="width: 100%; height: 900px;margin-top: 60px;"></div>
+
+
+        <script>
+          var map = L.map('map').setView([54.286741, 48.233571], 17);
+
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(map);
+
+          var markers = [];
+          var routingControl;
+
+          map.on('click', function (e) {
+            if (markers.length >= 2) {
+              markers[0].remove();
+              markers[1].remove();
+              markers = [L.marker(e.latlng).addTo(map)];
+            } else {
+              markers.push(L.marker(e.latlng).addTo(map));
+            }
+
+            if (markers.length === 2) {
+              if (routingControl) {
+                map.removeControl(routingControl);
+              }
+              routingControl = L.Routing.control({
+                waypoints: markers.map(function (marker) {
+                  return marker.getLatLng();
+                }),
+                routeWhileDragging: true
+              }).addTo(map);
+            } else if (markers.length === 3) {
+              markers[0].remove();
+              markers[1].remove();
+              if (routingControl) {
+                map.removeControl(routingControl);
+              }
+              routingControl = L.Routing.control({
+                waypoints: markers.map(function (marker) {
+                  return marker.getLatLng();
+                }),
+                routeWhileDragging: true
+
+              }).addTo(map);
+            }
+          });
+
+            var marker = L.marker([54.286741, 48.233571]).addTo(map)
+            .bindPopup('<h2>CarPark</h2><p>Адрес: Баратаевский Аэропорт, Авиационная 20</p><p>Телефон: +7 (920) 123-45-67</p><p>Email: carpark@example.com</p>');
+          marker.openPopup();
+
+          var focusMarkerButton = L.easyButton('fa-car', function () {
+            map.setView(marker.getLatLng(), 17);
+          });
+
+          focusMarkerButton.addTo(map);
+
+          // Добавление кнопки определения местоположения
+          var locateButton = L.easyButton('fa-location-arrow', function () {
+            map.locate({ setView: true, maxZoom: 17 });
+          });
+
+          locateButton.addTo(map);
+
+          // Обработка события определения местоположения
+          map.on('locationfound', function (e) {
+            var radius = e.accuracy / 2;
+            L.marker(e.latlng).addTo(map)
+              .bindPopup("Мое местоположение").openPopup();
+
+          });
+          var routingControl = L.Routing.control({
+            waypoints: [
+              L.latLng(marker1.getLatLng()),
+              L.latLng(marker2.getLatLng())
+            ],
+            routeWhileDragging: true
+          }).addTo(map);
+
+          // Обработка события ошибки определения местоположения
+          map.on('locationerror', function (e) {
+            alert("Не удалось определить ваше местоположение");
+          });
+
+
+          
+        </script>
+      </body>
+    </section>
+
+
+  </main>
+  <script>
+     let sections = document.querySelectorAll('section');
+let navLinks = document.querySelectorAll('header nav a');
+
+let currentSection = sections[0];
+let currentNavLink = document.querySelector('header nav a[href*=' + currentSection.getAttribute('id') + ']');
+currentNavLink.classList.add('active');
+
+window.onscroll = () => {
+    sections.forEach(sec => {
+        let top = window.scrollY;
+        let offset = sec.offsetTop - 150;
+        let height = sec.offsetHeight;
+        let id = sec.getAttribute('id');
+        if(top >= offset && top < offset + height) {
+            navLinks.forEach(links => {
+                links.classList.remove('active');
+                document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
+            });
+        };
+    });
+};
+  </script>
+  <script>
+    const username = sessionStorage.getItem("username");
+    const phoneNumber = sessionStorage.getItem("phoneNumber");
+
+    if (username && phoneNumber) {
+      document.getElementById("phoneNumber").textContent = phoneNumber;
+      document.getElementById("username").textContent = username;
+    } else {
+      document.getElementById("username").textContent = "Гость";
+    }
+
+    function logout() {
+      sessionStorage.removeItem("phonenumber");
+      sessionStorage.removeItem("username");
+
+      // Перенаправление на страницу авторизации
+      window.location.href = "index.html";
+    }
+  </script>
+  <script>
+    const servicesContainer = document.querySelector('.services-container');
+    let isMouseDown = false;
+    let startX;
+    let scrollLeft;
+
+    servicesContainer.addEventListener('mousedown', (event) => {
+      if (event.target.id === 'scroll-prev' || event.target.id === 'scroll-next') {
+        return;
+      }
+      isMouseDown = true;
+      startX = event.clientX;
+      scrollLeft = servicesContainer.scrollLeft;
+    });
+
+    servicesContainer.addEventListener('mousemove', (event) => {
+      if (!isMouseDown) {
+        return;
+      }
+
+      const distanceX = event.clientX - startX;
+      const newScrollLeft = scrollLeft - distanceX;
+      servicesContainer.scrollTo({ left: newScrollLeft, behavior: 'instant' }); // Change 'smooth' to 'instant'
+    });
+
+    servicesContainer.addEventListener('mouseup', () => {
+      isMouseDown = false;
+    });
+
+    servicesContainer.addEventListener('mouseleave', () => {
+      isMouseDown = false;
+    });
+
+    document.querySelector('#scroll-prev').addEventListener('click', () => {
+      servicesContainer.scrollTo({ left: servicesContainer.scrollLeft - servicesContainer.clientWidth, behavior: 'instant' }); // Change 'smooth' to 'instant'
+    });
+
+    document.querySelector('#scroll-next').addEventListener('click', () => {
+      servicesContainer.scrollTo({ left: servicesContainer.scrollLeft + servicesContainer.clientWidth, behavior: 'instant' }); // Change 'smooth' to 'instant'
+    });
+
     
+  </script>
 </body>
+
 </html>
