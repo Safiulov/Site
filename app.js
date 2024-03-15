@@ -14,70 +14,92 @@ port: 5432,
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(`${__dirname}/public`));
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.get('/', async (req, res) => {
-  try {
-    res.sendFile(`${__dirname}/index.html`);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  }
+app.get('/', (req, res) => {
+  res.redirect('/index');
 });
-  
-app.get('/index.html', async (req, res) => {
-    try {
-      res.sendFile(`${__dirname}/index.html`);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Internal Server Error');
-    }
-  });
-  
-  app.get('/index2.html', async (req, res) => {
-    try {
-      res.sendFile(`${__dirname}/index2.html`);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Internal Server Error');
-    }
-  });
 
+app.get('/register', (req, res) => {
+  res.render('index2');
+});
+
+app.get('/login', (req, res) => {
+  res.render('index');
+});
 
 app.post('/check-login', async (req, res) => {
-const { username, password } = req.body;
-
-try {
-const result = await pool.query('SELECT * FROM "Стоянка"."Klients" WHERE "Логин" = $1 AND "Пароль" = $2', [username, password]);
-if (result.rows.length > 0) {
-    res.json({ success: true, username: result.rows[0].ФИО });
-} else {
-res.json({ success: false });
-}
-} catch (err) {
-console.error(err);
-res.json({ success: false });
-}
-});
-
-
-
-app.post('/register', async (req, res) => {
-  const { Логин, Пароль, ФИО, Дата_рождения, Телефон, Марка, Цвет, Тип, Госномер, Год } = req.body;
+  const { username, password } = req.body;
 
   try {
+    const result = await pool.query('SELECT "ФИО", "Почта" FROM "Стоянка"."Klients" WHERE "Логин" = $1 AND "Пароль" = $2', [username, password]);
+    if (result.rows.length > 0) {
+      res.json({ success: true, username: result.rows[0].ФИО, phoneNumber: result.rows[0].Почта });
+    } else {
+      res.json({ success: false });
+    }
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false });
+  }
+});
+
+async function checkUsername(username) {
+  try {
+    const result = await pool.query('SELECT * FROM "Стоянка"."Klients" WHERE "Логин" = $1', [username]);
+    if (result.rows.length > 0) {
+      return { success: false, message: 'Такой логин уже существует' };
+    } else {
+      return { success: true };
+    }
+  } catch (err) {
+    console.error(err);
+    return { success: false, message: 'Ошибка при проверке логина' };
+  }
+}
+
+async function checkPassword(password) {
+  try {
+    const result = await pool.query('SELECT * FROM "Стоянка"."Klients" WHERE "Пароль" = $1', [password]);
+    if (result.rows.length > 0) {
+      return { success: false, message: 'Такой пароль уже существует' };
+    } else {
+      return { success: true };
+    }
+  } catch (err) {
+    console.error(err);
+    return { success: false, message: 'Ошибка при проверке пароля' };
+  }
+}
+
+app.post('/register', async (req, res) => {
+  const { Логин, Пароль, ФИО, Дата_рождения, Почта, Марка, Цвет, Тип, Госномер, Год } = req.body;
+
+  const usernameCheck = await checkUsername(Логин);
+  if (!usernameCheck.success) {
+    return res.json(usernameCheck);
+  }
+
+  const passwordCheck = await checkPassword(Пароль);
+  if (!passwordCheck.success) {
+    return res.json(passwordCheck);
+  }
+
+  try {
+   
     await pool.query(
-      'WITH new_klients AS (INSERT INTO "Стоянка"."Klients"( "Логин", "Пароль","ФИО", "Дата_рождения", "Телефон") VALUES ( $1, $2, $3, $4, $5) RETURNING *), new_auto AS (INSERT INTO "Стоянка"."Auto"("Марка", "Цвет", "Тип", "Госномер", "Год", "Код_клиента") VALUES ( $6, $7, $8, $9,$10,(select "Код_клиента" from new_klients)) RETURNING *) SELECT * FROM new_auto;',
-      [Логин, Пароль, ФИО, Дата_рождения, Телефон, Марка, Цвет, Тип, Госномер, Год]   );
+      'WITH new_auto AS (INSERT INTO "Стоянка"."Auto"( "Марка", "Цвет", "Тип", "Госномер", "Год") VALUES ( $1, $2, $3, $4,$5) RETURNING *), new_klients AS (INSERT INTO "Стоянка"."Klients"( "Логин", "Пароль","ФИО", "Дата_рождения", "Почта","Код_авто") VALUES ( $6, $7, $8, $9, $10,(select "Код_авто" from new_auto)) RETURNING *) SELECT * FROM new_klients;',
+      [Марка, Цвет, Тип, Госномер, Год, Логин, Пароль, ФИО, Дата_рождения, Почта]
+    );
 
     res.json({ success: true });
   } catch (err) {
     console.error(err);
-    res.json({ success: false});
+    res.json({ success: false });
   }
 });
-
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
