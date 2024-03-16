@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Register Form - CodeCraftedWeb</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
   <div class="container">
     <div class="main">
       <input type="checkbox" id="chk" aria-hidden="true">
-
       <div class="login">
         <form class="form" onsubmit="event.preventDefault(); login(event)">
-
           <label for="chk" aria-hidden="true">Вход</label>
           <input class="input" type="text" name="Логин" placeholder="Логин" id="username" required>
           <input class="input" type="password" name="Пароль" placeholder="Пароль" id="password" required>
@@ -25,7 +21,6 @@
           function login(event) {
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
-
             // Send a request to the server to check if the username and password are correct
             fetch('/check-login', {
               method: 'POST',
@@ -41,8 +36,6 @@
                   sessionStorage.setItem("login", "true");
                   sessionStorage.setItem("username", data.username);
                   sessionStorage.setItem("phoneNumber", data.phoneNumber);
-
-
                   // Redirect to the main page
                   window.location.href = "index2.html";
                 } else {
@@ -50,8 +43,6 @@
                 }
               });
           }
-
-
         </script>
       </div>
       <div class="register">
@@ -60,7 +51,7 @@
           <input class="input" type="text" name="Логин" placeholder="Логин" required>
           <span id="register-login-error" style="color: red;"></span>
           <input class="input" type="password" name="Пароль" placeholder="Пароль" required>
-           <span id="register-password-error" style="color: red;"></span>
+          <span id="register-password-error" style="color: red;"></span>
           <input class="input" type="text" name="ФИО" placeholder="ФИО" required>
           <input class="input" type="date" name="Дата_рождения" placeholder="Дата_рождения" required>
           <input class="input" type="text" name="Почта" placeholder="Почта" required>
@@ -70,7 +61,6 @@
           <input class="input" type="text" name="Госномер" placeholder="Госномер" required>
           <input class="input" type="text" name="Год" placeholder="Год" required>
           <button type="submit">Зарегистрироваться</button>
-        
         </form>
         <script>
           function register(event) {
@@ -88,7 +78,6 @@
               Госномер: formData.get('Госномер'),
               Год: formData.get('Год')
             };
-
             // Send a request to the server to register the user
             fetch('/register', {
               method: 'POST',
@@ -101,26 +90,22 @@
               .then(data => {
                 if (data.success) {
                   document.querySelector('label[for="chk"]').click();
-            } else {
-              if (data.message === 'Такой логин уже существует') {
-          document.getElementById("register-login-error").innerText = data.message;
-        } else if (data.message === 'Такой пароль уже существует') {
-          document.getElementById("register-password-error").innerText = data.message;
-              } else {
-                alert('Что-то пошло не так...');
-              }
-            }
-          });
-      }
+                } else {
+                  if (data.message === 'Такой логин уже существует') {
+                    document.getElementById("register-login-error").innerText = data.message;
+                  } else if (data.message === 'Такой пароль уже существует') {
+                    document.getElementById("register-password-error").innerText = data.message;
+                  } else {
+                    alert('Что-то пошло не так...');
+                  }
+                }
+              });
+          }
         </script>
         </form>
-
-
       </div>
     </div>
-
   </div>
 </body>
 <script src="/html-css-js-postgresql/app.js"></script>
-
 </html>
