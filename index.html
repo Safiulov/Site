@@ -33,9 +33,15 @@
               .then(data => {
                 if (data.success) {
                   // Save the login value in the session storage
-                  sessionStorage.setItem("login", "true");
-                  sessionStorage.setItem("username", data.username);
-                  sessionStorage.setItem("phoneNumber", data.phoneNumber);
+                
+                  sessionStorage.setItem("Fio", data.Fio);
+                  sessionStorage.setItem("Email", data.Email);
+                  sessionStorage.setItem("Login", data.Login);
+                  sessionStorage.setItem("Password", data.Password);
+                  sessionStorage.setItem("Marka", data.Marka);
+                  sessionStorage.setItem("Color", data.Color);
+                  sessionStorage.setItem("Type", data.Type);
+                  sessionStorage.setItem("Number", data.Number);
                   // Redirect to the main page
                   window.location.href = "index2.html";
                 } else {
