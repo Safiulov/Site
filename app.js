@@ -33,9 +33,9 @@ app.post('/check-login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const result = await pool.query('SELECT k."ФИО",k."Почта",k."Логин",k."Пароль", a."Марка",a."Цвет",a."Тип",a."Госномер" FROM "Стоянка"."Klients" as k JOIN "Стоянка"."Auto" as a ON k."Код_авто" = a."Код_авто" where "Логин"=$1 and "Пароль" = $2', [username, password]);
+    const result = await pool.query('SELECT k."ФИО",k."Почта",k."Логин",k."Пароль", a."Марка",a."Цвет",a."Тип",a."Госномер",a."Год" FROM "Стоянка"."Klients" as k JOIN "Стоянка"."Auto" as a ON k."Код_авто" = a."Код_авто" where "Логин"=$1 and "Пароль" = $2', [username, password]);
     if (result.rows.length > 0) {
-      res.json({ success: true, Fio: result.rows[0].ФИО, Email: result.rows[0].Почта,Login: result.rows[0].Логин,Password: result.rows[0].Пароль, Marka: result.rows[0].Марка, Color: result.rows[0].Цвет, Type: result.rows[0].Тип, Number: result.rows[0].Госномер });
+      res.json({ success: true, Fio: result.rows[0].ФИО, Email: result.rows[0].Почта,Login: result.rows[0].Логин,Password: result.rows[0].Пароль, Marka: result.rows[0].Марка, Color: result.rows[0].Цвет, Type: result.rows[0].Тип, Number: result.rows[0].Госномер, Year: result.rows[0].Год });
     } else {
       res.json({ success: false });
     }
@@ -103,7 +103,6 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 
-
 app.put('/update', async (req, res) => {
   const { Логин, ФИО, Почта, НовыйЛогин, НовыйПароль } = req.body;
 
@@ -113,7 +112,6 @@ app.put('/update', async (req, res) => {
     await pool.query('UPDATE "Стоянка"."Klients" SET "ФИО" = $1, "Почта" = $2 WHERE "Логин" = $3', [ФИО, Почта, Логин]);
 
     if (НовыйЛогин && НовыйПароль) {
-     
       await pool.query('UPDATE "Стоянка"."Klients" SET "Логин" = $1, "Пароль" = $2 WHERE "Логин" = $3', [НовыйЛогин, НовыйПароль, Логин]);
     }
 
@@ -124,5 +122,24 @@ app.put('/update', async (req, res) => {
     console.error(err);
     await pool.query('ROLLBACK');
     res.json({ success: false });
-  }
-});
+  }});
+
+
+
+  
+app.put('/update2', async (req, res) => {
+  const { марка, цвет, тип, госномер, год,Логин } = req.body;
+
+  try {
+    await pool.query('UPDATE "Стоянка"."Auto" SET "Марка" = $1, "Цвет" = $2, "Тип" = $3, "Госномер" = $4, "Год" = $5 WHERE "Код_авто" = (select "Код_авто" from "Стоянка"."Klients" where "Логин"=$6)', [марка, цвет, тип, госномер, год,Логин]);
+
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    await pool.query('ROLLBACK');
+    res.json({ success: false });
+  }});
+
+
+  
