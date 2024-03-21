@@ -17,13 +17,15 @@ header {
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
-  margin-bottom: -75px;
+  background-color: #000000;
   text-shadow: 0 0 10px #ffffff,
     0 0 42px #0fa,
     0 0 62px #0fa,
     0 0 102px #0fa;
   ;
+ 
 }
+
 
 .logo {
   font-size: 25px;
@@ -89,9 +91,10 @@ section p {
   padding: 50px;
   overflow-x: scroll;
   user-select: none;
-  margin-left: auto;
-  margin-right: auto;
+ 
+  margin-bottom: 30px;
 }
+
 
 
 .services {
@@ -186,8 +189,9 @@ section p {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-bottom: 10px;
 }
+
+
 
 .card {
   position: relative;
@@ -197,6 +201,15 @@ section p {
   margin: 20px;
 
 }
+
+
+@media screen and (max-width: 900px) {
+  .card {
+    width: 300px;
+    height: 350px;
+  }
+}
+
 
 .front,
 .back {
@@ -270,14 +283,51 @@ section p {
    overflow-y: scroll;
 }
 
-.card2 {
-  width: 500px;
-  height: 400px;
-  transition: transform 0.6s;
-  position: relative;
-  transform-style: preserve-3d;
+.card-container2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+ 
 }
-.card2.flip {
+
+.card2.flip .back {
+  transform: rotateY(0deg);
+}
+
+.card2.flip .front {
+  transform: rotateY(180deg);
+}
+
+.card2 {
+  position: relative;
+  width: 500px;
+  height: 650px;
+  perspective: 1000px;
+  margin: 20px;
+  
+  
+}
+
+@media screen and (max-width: 1400px) {
+  .card2 {
+    width: 450px;
+    height: 550px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .card2 {
+    width: 400px;
+    height: 450px;
+  }
+}
+
+
+
+
+
+
+.card2.flip .flip-icon {
   transform: rotateY(180deg);
 }
 
@@ -286,25 +336,188 @@ section p {
   width: 100%;
   height: 100%;
   position: absolute;
- 
-
 }
 
 .card2 .front {
-  background-color: #ccc;
+  background-color: #ffffff41;
 }
 
 .card2 .back {
-  background-color: #ddd;
-  transform: rotateY(180deg);
+  background-color: #ffffff52;
+
+  margin-bottom: 100px;
 }
 
 .flip-icon {
   position: absolute;
-  top: 50%;
+  top: 2%;
   right: 10px;
-  transform: translateY(-50%);
-  font-size: 2rem;
+  font-size: 0.9rem;
   color: #fff;
   cursor: pointer;
+}
+
+.front p{
+  font-size: 2vw;
+}
+
+.back form {
+  display: flex;
+  flex-direction: column;
+  font-size: 2vw;
+}
+
+.back input {
+  padding: 5px;
+  border: 1px solid #ffffff42;
+  border-radius: 3px;
+}
+
+.back button {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.back button:hover {
+  background-color: #0056b3;
+}
+
+
+@media screen and (max-width:1200px) {
+  .back label {
+    font-size: 2.35vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .back h1 {
+    font-size: 2.4vw;
+  }
+}
+
+
+@media screen and (max-width:800px) {
+  .back label {
+    font-size: 3.5vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .back h1 {
+    font-size: 3.5vw;
+  }
+}
+
+
+@media screen and (max-width:1200px) {
+  .front p {
+    font-size: 2.35vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .front h1 {
+    font-size: 2.4vw;
+  }
+}
+
+
+@media screen and (max-width:800px) {
+  .front p {
+    font-size: 3.5vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .front h1 {
+    font-size: 3.5vw;
+  }
+}
+
+
+
+
+#reserve {
+  background-color: #f2f2f2;
+  padding: 50px;
+  text-align: center;
+  
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#reserve h1 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+#parking-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+  justify-content: space-between;
+  
+}
+
+#parking-form label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+  flex-basis: calc(30% - 20px);
+}
+
+#parking-form input[type="text"],
+#parking-form input[type="datetime-local"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  width: 100%;
+  box-sizing: border-box;
+  flex-basis: calc(30% - 20px);
+}
+
+#parking-form button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex-basis: calc(30% - 20px);
+}
+
+#parking-form button:hover {
+  background-color: #444;
+}
+
+#parking-status {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.parking-spot {
+  background-color: #d60707;
+  color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 30%;
+  text-align: center;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.free {
+  background-color: green;
+}
+
+.occupied {
+  background-color: red;
 }

@@ -17,6 +17,7 @@
       <a href="#about">Тарифы</a>
       <a href="#services">Услуги</a>
       <a href="#contact">Контакты</a>
+      <a href="#reserve">Бронь</a>
       <a href="#" onclick="logout()">Выйти</a>
     </nav>
   </header>
@@ -299,7 +300,7 @@
       </head>
 
       <body>
-        <div id="map" style="width: 100%; height: 900px;margin-top: 60px;"></div>
+        <div id="map" style="width: 100%; height: 800px;margin-top: 60px;"></div>
         <script>
           var map = L.map('map').setView([54.286741, 48.233571], 15);
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -347,6 +348,82 @@
         </script>
       </body>
     </section>
+
+    <section id="reserve">
+      <body>
+        <h1>Парковки:</h1>
+        <form id="parking-form">
+            <label for="text-input-1">Введите Место:</label>
+            <input type="text" id="text-input-1" name="Место" required>
+            <label for="date-input-1">Дата и время:</label>
+            <input type="datetime-local" id="date-input-1" name="Дата_въезда" required>
+            <button type="submit">Найти парковку</button>
+            <div id="parking-status"></div>
+        </form>
+        <script src="script.js"></script>
+    </body>
+
+    </section>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+  const parkingStatus = document.getElementById('parking-status');
+  const textForm = document.getElementById('parking-form');
+
+  textForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const Место = document.getElementById('text-input-1').value;
+      const Дата_въезда = document.getElementById('date-input-1').value;
+
+      try {
+          const response = await fetch('/parking-status2', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ Место, Дата_въезда }),
+          });
+
+          if (response.ok) {
+              const data = await response.json();
+              parkingStatus.textContent = data.message;
+              alert("OK1");
+          } else {
+              const data = await response.json();
+              parkingStatus.textContent = data.message;
+              alert("NE OK!");
+          }
+      } catch (error) {
+          console.error('Error:', error);
+          parkingStatus.textContent = 'Ошибка при добавлении автомобиля на стоянку';
+      }
+  });
+
+  fetch('/parking-status')
+      .then((res) => res.json())
+.then((data) => {
+          data.forEach((spot) => {
+              const div = document.createElement('div');
+              div.className = 'parking-spot';
+              div.dataset.spotNumber = spot.Госномер;
+
+              if (spot.Статус === 'Занято') {
+                  div.classList.add('occupied');
+              } else if (spot.Статус === 'Свободно') {
+                  div.classList.add('free');
+              }
+
+              const dateInfo = spot.Дата_въезда ? ` ${spot.Дата_въезда}` : '';
+              const gosnomer = spot.Госномер ? ` ${spot.Госномер}` : '';
+
+              div.textContent = `${spot.Статус} ${spot.Место} ${dateInfo} ${gosnomer}`;
+
+              parkingStatus.appendChild(div);
+          });
+      })
+      .catch((error) => {
+          console.error('Error:', error);
+      });
+});
+    </script>
 
 
 

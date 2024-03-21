@@ -143,3 +143,19 @@ app.put('/update2', async (req, res) => {
 
 
   
+app.get('/parking-status', async (req, res) => {
+  const result = await pool.query('SELECT * FROM "Стоянка"."Spaces"');
+  res.json(result.rows);
+});
+
+app.post('/parking-status2', async (req, res) => {
+  const { Место, Дата_въезда } = req.body;
+
+  try {
+    await pool.query('INSERT INTO "Стоянка"."Sales" (Место, Дата_въезда) VALUES ($1, $2)', [Место, Дата_въезда]);
+    res.status(201).json({ message: 'Автомобиль добавлен на стоянку' });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Ошибка при добавлении автомобиля на стоянку' });
+ }
+});
