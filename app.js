@@ -147,15 +147,47 @@ app.get('/parking-status', async (req, res) => {
   const result = await pool.query('SELECT * FROM "Стоянка"."Spaces"');
   res.json(result.rows);
 });
-
 app.post('/parking-status2', async (req, res) => {
-  const { Место, Дата_въезда } = req.body;
+  const { Место, Дата_въезда, Логин, Тип_услуги } = req.body;
 
   try {
-    await pool.query('INSERT INTO "Стоянка"."Sales" (Место, Дата_въезда) VALUES ($1, $2)', [Место, Дата_въезда]);
-    res.status(201).json({ message: 'Автомобиль добавлен на стоянку' });
+    const result = await pool.query('SELECT * FROM "Стоянка"."Sales" WHERE "Место" = $1 and "Дата_выезда" is null', [Место]);
+
+    if (result.rowCount > 0) {
+      return res.status(400).json({ message: 'Место уже занято' });
+    }
+    const result2 = await pool.query('SELECT * FROM "Стоянка"."Realisation" WHERE "Место" = $1', [Место]);
+
+    if (result2.rowCount > 0) {
+      return res.status(400).json({ message: 'Место уже занято' });
+    }
+
+    if (Тип_услуги === '1') {
+      if (Место[0]!='A')
+      {
+        return res.status(400).json({ message: 'NOT B' });
+      }
+      await pool.query('INSERT INTO "Стоянка"."Sales" (Место, Дата_въезда, Код_клиента) VALUES ($1, $2, (select "Код_клиента" from "Стоянка"."Klients" where "Логин"=$3))', [Место, Дата_въезда, Логин]);
+      res.status(201).json({ message: 'Автомобиль добавлен на стоянку' });
+    } else if (Тип_услуги === '2') {
+      if (Место[0]!='B')
+      {
+        return res.status(400).json({ message: 'NOT A' });
+      }
+      await pool.query('INSERT INTO "Стоянка"."Realisation" (Место, Дата_въезда, Код_клиента, Код_услуги) VALUES ($1, $2, (select "Код_клиента" from "Стоянка"."Klients" where "Логин"=$3), 1)', [Место, Дата_въезда, Логин]);
+      res.status(201).json({ message: 'Бронирование на месяц добавлено' });
+    } else if (Тип_услуги === '3') {
+      if (Место[0]!='B')
+      {
+        return res.status(400).json({ message: 'NOT A' });
+      }
+      await pool.query('INSERT INTO "Стоянка"."Realisation" (Место, Дата_въезда, Код_клиента, Код_услуги) VALUES ($1, $2, (select "Код_клиента" from "Стоянка"."Klients" where "Логин"=$3), 2)', [Место, Дата_въезда, Логин]);
+      res.status(201).json({ message: 'Бронирование на год добавлено' });
+    } else {
+      res.status(400).json({ message: 'Неверный тип услуги' });
+    }
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ message: 'Ошибка при добавлении автомобиля на стоянку' });
- }
+  }
 });

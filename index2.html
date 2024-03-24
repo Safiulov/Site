@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style_test.css">
-  
+
   <title>Личный кабинет</title>
 </head>
 
@@ -40,10 +40,10 @@
               <label for="email">Электронная почта:</label>
               <input type="email" id="email" name="email" value="" placeholder="example@example.com">
               <br>
-              <label for="login">Логин:</label> 
+              <label for="login">Логин:</label>
               <input type="text" id="login" name="login" value="" placeholder="example">
               <br>
-              <label for="password">Пароль:</label> 
+              <label for="password">Пароль:</label>
               <input type="password" id="password" name="password">
               <br>
               <button type="submit">Сохранить изменения</button>
@@ -53,37 +53,37 @@
             <i class="fas fa-arrow-right"></i>
           </div>
         </div>
-          <div class="card2">
-            <div class="front">
-              <h2>Данные авто</h2>
-              <p> Марка:<span id="Marka"></span> </p>
-              <p> Цвет:<span id="Color"></span> </p>
-              <p> Тип:<span id="Type"></span> </p>
-              <p> Госномер:<span id="Number"></span> </p>
-              <p> Год:<span id="Year"></span> </p>
-             
-            </div>
-            <div class="back">
-              <h1>Редактирование данных</h1>
-              <form id="update-form2">
-                <label for="marka">Марка:</label>
-                <input type="text" id="marka" name="marka" value="" placeholder="example">
-                <br>
-                <label for="color">Цвет:</label>
-                <input type="text" id="color" name="color" value="" placeholder="example@example.com">
-                <br>
-                <label for="type">Тип:</label> 
-                <input type="text" id="type" name="type" value="" placeholder="example">
-                <br>
-                <label for="number">Госномер:</label>
-                <input type="text" id="number" name="number" value="" placeholder="example">
-                <br>
-                <label for="year">Год:</label> 
-                <input type="year" id="year" name="year" value="" placeholder="example">
-                <br>
-                <button type="submit">Сохранить изменения</button>
-              </form>
-            </div>
+        <div class="card2">
+          <div class="front">
+            <h2>Данные авто</h2>
+            <p> Марка:<span id="Marka"></span> </p>
+            <p> Цвет:<span id="Color"></span> </p>
+            <p> Тип:<span id="Type"></span> </p>
+            <p> Госномер:<span id="Number"></span> </p>
+            <p> Год:<span id="Year"></span> </p>
+
+          </div>
+          <div class="back">
+            <h1>Редактирование данных</h1>
+            <form id="update-form2">
+              <label for="marka">Марка:</label>
+              <input type="text" id="marka" name="marka" value="" placeholder="example">
+              <br>
+              <label for="color">Цвет:</label>
+              <input type="text" id="color" name="color" value="" placeholder="example@example.com">
+              <br>
+              <label for="type">Тип:</label>
+              <input type="text" id="type" name="type" value="" placeholder="example">
+              <br>
+              <label for="number">Госномер:</label>
+              <input type="text" id="number" name="number" value="" placeholder="example">
+              <br>
+              <label for="year">Год:</label>
+              <input type="year" id="year" name="year" value="" placeholder="example">
+              <br>
+              <button type="submit">Сохранить изменения</button>
+            </form>
+          </div>
 
 
 
@@ -91,110 +91,110 @@
             <i class="fas fa-arrow-right"></i>
           </div>
         </div>
-        
+
       </div>
     </section>
-    
-  <script>
-    const updateForm = document.getElementById('update-form');
 
-    updateForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
+    <script>
+      const updateForm = document.getElementById('update-form');
 
-      const fio = document.getElementById('fio').value;
-      const email = document.getElementById('email').value;
-      const newLogin = document.getElementById('login').value;
-      const newPassword = document.getElementById('password').value;
-      const currentLogin = sessionStorage.getItem("Login");
+      updateForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-      try {
-        const response = await fetch('/update', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            Логин: currentLogin, // замените на текущий логин пользователя
-            ФИО: fio,
-            Почта: email,
-            НовыйЛогин: newLogin,
-            НовыйПароль: newPassword,
-          })
-        });
+        const fio = document.getElementById('fio').value;
+        const email = document.getElementById('email').value;
+        const newLogin = document.getElementById('login').value;
+        const newPassword = document.getElementById('password').value;
+        const currentLogin = sessionStorage.getItem("Login");
 
-        if (response.ok) {
-          alert("OK");
-          // Обновляем данные на странице
-          document.getElementById("Fio").textContent = fio;
-          document.getElementById("Email").textContent = email;
-          document.getElementById("Login").textContent = newLogin;
-        } else {
-          throw new Error('Ошибка при обновлении');
+        try {
+          const response = await fetch('/update', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              Логин: currentLogin, // замените на текущий логин пользователя
+              ФИО: fio,
+              Почта: email,
+              НовыйЛогин: newLogin,
+              НовыйПароль: newPassword,
+            })
+          });
+
+          if (response.ok) {
+            alert("OK");
+            // Обновляем данные на странице
+            document.getElementById("Fio").textContent = fio;
+            document.getElementById("Email").textContent = email;
+            document.getElementById("Login").textContent = newLogin;
+          } else {
+            throw new Error('Ошибка при обновлении');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Ошибка при обновлении');
         }
-      } catch (error) {
-        console.error(error);
-        alert('Ошибка при обновлении');
-      }
-    });
-  </script>
-
-<script>
-  const updateForm2 = document.getElementById('update-form2');
-
-  updateForm2.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const marka = document.getElementById('marka').value;
-    const color = document.getElementById('color').value;
-    const type = document.getElementById('type').value;
-    const number = document.getElementById('number').value;
-    const year = document.getElementById("year").value;
-    const currentLogin = sessionStorage.getItem("Login");
-
-    try {
-      const response = await fetch('/update2', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-           // замените на текущий логин пользователя
-          марка: marka,
-          цвет: color,
-          тип: type,
-          госномер: number,
-          год: year,
-          
-          Логин: currentLogin,
-        })
       });
+    </script>
 
-      if (response.ok) {
-        alert("OK");
-        // Обновляем данные на странице
-        document.getElementById("Marka").textContent = marka;
-        document.getElementById("Color").textContent = color;
-        document.getElementById("Type").textContent = type;
-        document.getElementById("Number").textContent = number;
-        document.getElementById("Year").textContent = year;
+    <script>
+      const updateForm2 = document.getElementById('update-form2');
 
-      
-      } else {
-        throw new Error('Ошибка при обновлении');
-      }
-    } catch (error) {
-      console.error(error);
-      alert('Ошибка при обновлении');
-    }
-  });
-</script>
+      updateForm2.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-  
-  
-  
-  
-  
-  <script>
+        const marka = document.getElementById('marka').value;
+        const color = document.getElementById('color').value;
+        const type = document.getElementById('type').value;
+        const number = document.getElementById('number').value;
+        const year = document.getElementById("year").value;
+        const currentLogin = sessionStorage.getItem("Login");
+
+        try {
+          const response = await fetch('/update2', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              // замените на текущий логин пользователя
+              марка: marka,
+              цвет: color,
+              тип: type,
+              госномер: number,
+              год: year,
+
+              Логин: currentLogin,
+            })
+          });
+
+          if (response.ok) {
+            alert("OK");
+            // Обновляем данные на странице
+            document.getElementById("Marka").textContent = marka;
+            document.getElementById("Color").textContent = color;
+            document.getElementById("Type").textContent = type;
+            document.getElementById("Number").textContent = number;
+            document.getElementById("Year").textContent = year;
+
+
+          } else {
+            throw new Error('Ошибка при обновлении');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Ошибка при обновлении');
+        }
+      });
+    </script>
+
+
+
+
+
+
+    <script>
       document.getElementById('flip-btn').addEventListener('click', function () {
         this.parentElement.classList.toggle('flip');
       });
@@ -353,76 +353,82 @@
       <body>
         <h1>Парковки:</h1>
         <form id="parking-form">
-            <label for="text-input-1">Введите Место:</label>
-            <input type="text" id="text-input-1" name="Место" required>
-            <label for="date-input-1">Дата и время:</label>
-            <input type="datetime-local" id="date-input-1" name="Дата_въезда" required>
-            <button type="submit">Найти парковку</button>
-            <div id="parking-status"></div>
+          <label for="service-select">Выберите услугу:</label>
+          <select id="service-select" name="Тип_услуги" required>
+            <option value="">Выберите услугу</option>
+            <option value="1">Резервирование</option>
+            <option value="2">Бронь на месяц</option>
+            <option value="3">Бронь на год</option>
+          </select>
+          <label for="Место">Место:</label>
+          <input type="text" id="место" name="Место" required>
+          </select>
+          <label for="date-input-1">Дата и время:</label>
+          <input type="datetime-local" id="date-input-1" name="Дата_въезда" required>
+          <button type="submit">Найти парковку</button>
+          <div id="parking-status"></div>
         </form>
         <script src="script.js"></script>
-    </body>
-
+      </body>
     </section>
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
+     document.addEventListener('DOMContentLoaded', () => {
   const parkingStatus = document.getElementById('parking-status');
   const textForm = document.getElementById('parking-form');
+  const currentLogin = sessionStorage.getItem("Login");
 
   textForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
+    event.preventDefault();
 
-      const Место = document.getElementById('text-input-1').value;
-      const Дата_въезда = document.getElementById('date-input-1').value;
+    const Место = document.getElementById('место').value;
+    const Дата_въезда = document.getElementById('date-input-1').value;
+    const Тип_услуги = document.getElementById('service-select').value;
 
-      try {
-          const response = await fetch('/parking-status2', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ Место, Дата_въезда }),
-          });
+    try {
+      const response = await fetch('/parking-status2', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ Место, Дата_въезда, Логин: currentLogin, Тип_услуги }),
+      });
 
-          if (response.ok) {
-              const data = await response.json();
-              parkingStatus.textContent = data.message;
-              alert("OK1");
-          } else {
-              const data = await response.json();
-              parkingStatus.textContent = data.message;
-              alert("NE OK!");
-          }
-      } catch (error) {
-          console.error('Error:', error);
-          parkingStatus.textContent = 'Ошибка при добавлении автомобиля на стоянку';
+      if (response.ok) {
+        const data = await response.json();
+        parkingStatus.textContent = data.message;
+        alert("OK1");
+      } else {
+        const data = await response.json();
+        parkingStatus.textContent = data.message;
+        alert("NE OK!");
       }
+    } catch (error) {
+      console.error('Error:', error);
+      parkingStatus.textContent = 'Ошибка при добавлении автомобиля на стоянку';
+    }
   });
 
-  fetch('/parking-status')
-      .then((res) => res.json())
-.then((data) => {
-          data.forEach((spot) => {
+        fetch('/parking-status')
+          .then((res) => res.json())
+          .then((data) => {
+            data.forEach((spot) => {
               const div = document.createElement('div');
               div.className = 'parking-spot';
               div.dataset.spotNumber = spot.Госномер;
 
               if (spot.Статус === 'Занято') {
-                  div.classList.add('occupied');
+                div.classList.add('occupied');
               } else if (spot.Статус === 'Свободно') {
-                  div.classList.add('free');
+                div.classList.add('free');
               }
 
-              const dateInfo = spot.Дата_въезда ? ` ${spot.Дата_въезда}` : '';
-              const gosnomer = spot.Госномер ? ` ${spot.Госномер}` : '';
-
-              div.textContent = `${spot.Статус} ${spot.Место} ${dateInfo} ${gosnomer}`;
+              div.textContent = `${spot.Статус} ${spot.Место}`;
 
               parkingStatus.appendChild(div);
+            });
+          })
+          .catch((error) => {
+            console.error('Error:', error);
           });
-      })
-      .catch((error) => {
-          console.error('Error:', error);
       });
-});
     </script>
 
 
@@ -491,46 +497,46 @@
   </script>
 
 
-<script>
-  window.onload = () => {
-    const Fio = sessionStorage.getItem("Fio");
-    const Email = sessionStorage.getItem("Email");
-    const Login = sessionStorage.getItem("Login");
-    const Password = sessionStorage.getItem("Password");
-    const Marka = sessionStorage.getItem("Marka");
-    if (Marka) {
-      document.getElementById("Marka").textContent = Marka;
-    }
-    const Color = sessionStorage.getItem("Color");
-    if (Color) {
+  <script>
+    window.onload = () => {
+      const Fio = sessionStorage.getItem("Fio");
+      const Email = sessionStorage.getItem("Email");
+      const Login = sessionStorage.getItem("Login");
+      const Password = sessionStorage.getItem("Password");
+      const Marka = sessionStorage.getItem("Marka");
+      if (Marka) {
+        document.getElementById("Marka").textContent = Marka;
+      }
+      const Color = sessionStorage.getItem("Color");
+      if (Color) {
         document.getElementById("Color").textContent = Color;
       }
-    const Type = sessionStorage.getItem("Type");
-    if (Type) {
+      const Type = sessionStorage.getItem("Type");
+      if (Type) {
         document.getElementById("Type").textContent = Type;
       }
-    const Number = sessionStorage.getItem("Number");
-    if (Number) {
+      const Number = sessionStorage.getItem("Number");
+      if (Number) {
         document.getElementById("Number").textContent = Number;
       }
-    const Year = sessionStorage.getItem("Year");
-    if (Year)  {
-       document.getElementById("Year").textContent = Year;
+      const Year = sessionStorage.getItem("Year");
+      if (Year) {
+        document.getElementById("Year").textContent = Year;
       }
-    if (Login && Password) {
-      document.getElementById("Fio").textContent = Fio;
-      document.getElementById("Email").textContent = Email;
-      document.getElementById("Login").textContent = Login;
-      document.getElementById("Password").textContent = Password;
-     
-     
-   
-    
-    } else {
-      document.getElementById("Fio").textContent = "Гость";
-    }
-  };
-</script>
+      if (Login && Password) {
+        document.getElementById("Fio").textContent = Fio;
+        document.getElementById("Email").textContent = Email;
+        document.getElementById("Login").textContent = Login;
+        document.getElementById("Password").textContent = Password;
+
+
+
+
+      } else {
+        document.getElementById("Fio").textContent = "Гость";
+      }
+    };
+  </script>
 
 
 
