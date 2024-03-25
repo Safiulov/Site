@@ -52,24 +52,56 @@ section {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-image: url('https://images.wallpaperscraft.ru/image/single/parkovka_kolonny_zdanie_813549_2560x1600.jpg');
   justify-content: center;
   align-items: center;
-  background-image: url('https://mobimg.b-cdn.net/v3/fetch/aa/aae0b5e796321474dbe7cb2aa5f23edb.jpeg');
   font-size: 40px;
   color: #ffffff;
   font-weight: 700;
   text-align: center;
   padding: 0 20px;
-  
-  background-size: cover;
+  background-size:cover;
  
 }
 
-section:nth-child(odd) {
-  background-image: url('https://payload314.cargocollective.com/1/11/356489/8582193/24728_BMW_4er_Gran_Coupe_F36_Launchfilm_IT_28_1.gif');
-  image-rendering: optimizeSpeed;
+#home {
+  background-image: url('https://cdn.motor1.com/images/mgl/ZL6p2/s1/2018-audi-a8-rendering.jpg');
+  background-size: cover;
+  animation: fade-in 1.5s ease-out;
+}
+#about {
+  background-image: url('https://i.artfile.ru/1920x1080_1614431_[www.ArtFile.ru].jpg');
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 
 
+#update-form button,
+#update-form2 button {
+  background-color: #007bff; /* Blue background color */
+  border: none; /* No border */
+  color: white; /* White text color */
+  padding: 5px 10px; /* Padding for comfortable clicking */
+  text-align: center; /* Centered text */
+  text-decoration: none; /* No text decoration */
+  display: inline-block; /* Inline-block display for proper width and height */
+  font-size: 16px; /* Font size */
+  margin: 4px 2px; /* Margins for spacing */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+#update-form button:hover,
+#update-form2 button:hover {
+  background-color: #0056b3; /* Darker blue background color on hover */
 }
 
 section h1 {
@@ -200,7 +232,7 @@ section p {
   height: 350px;
   perspective: 1000px;
   margin: 20px;
-
+  transition: transform 0.3s;
 }
 
 
@@ -227,20 +259,30 @@ section p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: transform 0.3s;
+  transition: transform 0.7s;
 }
 
 .back {
   transform: rotateY(180deg);
+  
 }
 
-.card:hover .front {
-  transform: rotateY(-180deg);
-}
+ .service-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.301);
+    border: none;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
 
-.card:hover .back {
-  transform: rotateY(0);
-}
+  .service-button:hover {
+    transform: translateY(-5px);
+  }
 
 
 .back p {
@@ -270,6 +312,14 @@ section p {
     0 0 102px rgb(5, 18, 136),
     0 0 151px rgb(9, 3, 83);
   ;
+}
+
+.card.flip .front {
+  transform: rotateY(180deg);
+}
+
+.card.flip .back {
+  transform: rotateY(0deg);
 }
 
 .leaflet-routing-container {
@@ -347,6 +397,7 @@ section p {
   width: 100%;
   height: 100%;
   position: absolute;
+  transition: transform 0.7s;
 }
 
 .card2 .front {
@@ -389,20 +440,8 @@ section p {
 
 }
 
-.back button {
-  background-color: #007bff;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
 
-  margin-bottom: 50px;
-}
 
-.back button:hover {
-  background-color: #0056b3;
-}
 
 
 @media screen and (max-width:1200px) {
@@ -545,8 +584,19 @@ section p {
   margin-bottom: 10px;
   width: 30%;
   text-align: center;
+
   font-size: 1.2rem;
   transition: background-color 0.3s ease;
+}
+
+@media screen and (max-width: 800px) {
+  .parking-spot {
+    width: 300px;
+    height: 50px;
+ 
+  
+  
+  }
 }
 
 .free {
@@ -595,19 +645,4 @@ select {
   width: 100%;
   max-width: 300px;
   
-}
-
-/* Стиль для кнопки "Найти парковку" */
-button[type="submit"] {
-  font-size: 16px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background-color: #0056b3;
 }
