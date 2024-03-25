@@ -165,21 +165,21 @@ app.post('/parking-status2', async (req, res) => {
     if (Тип_услуги === '1') {
       if (Место[0]!='A')
       {
-        return res.status(400).json({ message: 'NOT B' });
+        return res.status(400).json({ message: 'Резервирование применяется только к местам сектора "А" ' });
       }
       await pool.query('INSERT INTO "Стоянка"."Sales" (Место, Дата_въезда, Код_клиента) VALUES ($1, $2, (select "Код_клиента" from "Стоянка"."Klients" where "Логин"=$3))', [Место, Дата_въезда, Логин]);
       res.status(201).json({ message: 'Автомобиль добавлен на стоянку' });
     } else if (Тип_услуги === '2') {
       if (Место[0]!='B')
       {
-        return res.status(400).json({ message: 'NOT A' });
+        return res.status(400).json({ message: 'Бронирование на месяц применяется только к местам сектора "В"' });
       }
       await pool.query('INSERT INTO "Стоянка"."Realisation" (Место, Дата_въезда, Код_клиента, Код_услуги) VALUES ($1, $2, (select "Код_клиента" from "Стоянка"."Klients" where "Логин"=$3), 1)', [Место, Дата_въезда, Логин]);
       res.status(201).json({ message: 'Бронирование на месяц добавлено' });
     } else if (Тип_услуги === '3') {
       if (Место[0]!='B')
       {
-        return res.status(400).json({ message: 'NOT A' });
+        return res.status(400).json({ message: 'Бронирование на год применяется только к местам сектора "В"' });
       }
       await pool.query('INSERT INTO "Стоянка"."Realisation" (Место, Дата_въезда, Код_клиента, Код_услуги) VALUES ($1, $2, (select "Код_клиента" from "Стоянка"."Klients" where "Логин"=$3), 2)', [Место, Дата_въезда, Логин]);
       res.status(201).json({ message: 'Бронирование на год добавлено' });
