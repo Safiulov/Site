@@ -381,11 +381,87 @@
           <label for="Место">Место:</label>
           <input type="text" id="место" name="Место" required>
           </select>
-          <label for="date-input-1">Дата и время:</label>
+          <label for="date-input-1" id="date-input-11">Дата въезда:</label>
+
           <input type="datetime-local" id="date-input-1" name="Дата_въезда" required>
           <button type="submit">Найти парковку</button>
           <div id="parking-status"></div>
+          <ul id="reserved-spaces-list"></ul>
+          <script>
+            async function getReservedSpaces() {
+              const username = sessionStorage.getItem("Login");
+
+              try {
+                const response = await fetch(`/reserved-spaces?username=${username}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                  const reservedSpacesList = document.getElementById('reserved-spaces-list');
+
+                  data.forEach(space => {
+                    const li = document.createElement('li');
+                    const date = new Date(space.Дата_въезда);
+                    li.textContent = `Место: ${space.Место}, Дата въезда: ${date.toLocaleString('ru-RU', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}, Услуга: ${space.Название_услуги}`;
+                    reservedSpacesList.appendChild(li);
+                  });
+                } else {
+                  console.log("Error:", data.message);
+                }
+              } catch (error) {
+                console.error(error);
+              }
+            }
+
+            getReservedSpaces();
+
+          </script>
         </form>
+        <script>
+          document.getElementById("service-select").addEventListener("change", function () {
+
+
+
+            if (this.value === "2") {
+
+              const today = new Date();
+              const thirtyDaysFromNow = new Date();
+              thirtyDaysFromNow.setDate(today.getDate() + 31);
+              const dateInput = document.getElementById("date-input-1");
+              dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000 * 2).toISOString().slice(0, -8);
+              dateInput.max = thirtyDaysFromNow.toISOString().slice(0, -8);
+            } else {
+              const dateInput = document.getElementById("date-input-1");
+              dateInput.min = "";
+              dateInput.max = "";
+            }
+
+            if (this.value === "3") {
+      const dateInput = document.getElementById("date-input-1");
+      const today = new Date();
+      const nextYear = new Date();
+      nextYear.setFullYear(today.getFullYear() + 1);
+      dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000 * 2).toISOString().slice(0, -8);
+      dateInput.max = nextYear.toISOString().slice(0, -8);
+    }
+
+
+            if (event.target.value === '1') {
+              document.getElementById("date-input-11").textContent = 'Дата въезда:';
+            } else {
+              document.getElementById("date-input-11").textContent = 'Дата выезда:';
+              dateInput.required = false; // Make the date input optional for bron on month/year
+            }
+           
+          });
+
+
+        </script>
       </body>
     </section>
     <script>

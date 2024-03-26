@@ -646,3 +646,34 @@ select {
   max-width: 300px;
   
 }
+
+#reserved-spaces-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: #ffffff1a;
+  border-radius: 5px;
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-style: italic;
+  font-size: 20px;
+}
+
+#reserved-spaces-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #ffffff1a;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#reserved-spaces-list li:hover {
+  background-color: #ffffff3a;
+}

@@ -157,9 +157,17 @@ app.post('/parking-status2', async (req, res) => {
       return res.status(400).json({ message: 'Место уже занято' });
     }
     const result2 = await pool.query('SELECT * FROM "Стоянка"."Realisation" WHERE "Место" = $1', [Место]);
-
     if (result2.rowCount > 0) {
-      return res.status(400).json({ message: 'Место уже занято' });
+      const reservedPlace = result2.rows[0];
+      const reservedDate = new Date(reservedPlace.Дата_въезда);
+      const reservedMonths = reservedPlace.Код_услуги === 1 ? 1 : 12;
+     // Если тариф "Бронирование на месяц", то проверим на месяц вперёд, если "Бронирование на год", то на год вперёд
+      const endDate = new Date(reservedDate.getFullYear(), reservedDate.getMonth() + reservedMonths, reservedDate.getDate());
+      const currentDate = new Date(Дата_въезда);
+
+      if (Тип_услуги === '2' && (currentDate >= reservedDate && currentDate < endDate)) {
+        return res.status(400).json({ message: 'Место забронировано на заданный период' });
+      }
     }
 
     if (Тип_услуги === '1') {
@@ -189,5 +197,19 @@ app.post('/parking-status2', async (req, res) => {
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ message: 'Ошибка при добавлении автомобиля на стоянку' });
+  }
+});
+
+
+app.get('/reserved-spaces', async (req, res) => {
+  const { username } = req.query;
+
+  try {
+    const result = await pool.query('SELECT * FROM "Стоянка"."Realisation" WHERE "Код_клиента" = (SELECT "Код_клиента" FROM "Стоянка"."Klients" WHERE "Логин" = $1)', [username]);
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false });
   }
 });
