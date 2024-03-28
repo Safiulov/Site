@@ -23,7 +23,7 @@ header {
     0 0 62px #0fa,
     0 0 102px #0fa;
   ;
- 
+
 }
 
 
@@ -31,7 +31,7 @@ header {
   font-size: 25px;
   color: #fff;
   text-decoration: none;
-  font-weight: 600;
+
 }
 
 nav a {
@@ -60,15 +60,16 @@ section {
   font-weight: 700;
   text-align: center;
   padding: 0 20px;
-  background-size:cover;
- 
+  background-size: cover;
+
 }
 
 #home {
   background-image: url('https://cdn.motor1.com/images/mgl/ZL6p2/s1/2018-audi-a8-rendering.jpg');
   background-size: cover;
-  animation: fade-in 1.5s ease-out;
+  animation: fade-in 1.2s ease-out;
 }
+
 #about {
   background-image: url('https://i.artfile.ru/1920x1080_1614431_[www.ArtFile.ru].jpg');
 }
@@ -86,28 +87,40 @@ section {
 
 #update-form button,
 #update-form2 button {
-  background-color: #007bff; /* Blue background color */
-  border: none; /* No border */
-  color: white; /* White text color */
-  padding: 5px 10px; /* Padding for comfortable clicking */
-  text-align: center; /* Centered text */
-  text-decoration: none; /* No text decoration */
-  display: inline-block; /* Inline-block display for proper width and height */
-  font-size: 16px; /* Font size */
-  margin: 4px 2px; /* Margins for spacing */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  background-color: #007bff;
+  /* Blue background color */
+  border: none;
+  /* No border */
+  color: white;
+  /* White text color */
+  padding: 5px 10px;
+  /* Padding for comfortable clicking */
+  text-align: center;
+  /* Centered text */
+  text-decoration: none;
+  /* No text decoration */
+  display: inline-block;
+  /* Inline-block display for proper width and height */
+  font-size: 16px;
+  /* Font size */
+  margin: 4px 2px;
+  /* Margins for spacing */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  transition: background-color 0.3s ease;
+  /* Smooth transition for background color */
 }
 
 #update-form button:hover,
 #update-form2 button:hover {
-  background-color: #0056b3; /* Darker blue background color on hover */
+  background-color: #0056b3;
+  /* Darker blue background color on hover */
 }
 
 section h1 {
   font-size: 50px;
   margin-top: 15px;
-  
+
 }
 
 section p {
@@ -121,11 +134,11 @@ section p {
   justify-content: space-between;
   align-items: center;
   width: 75%;
- 
+
   overflow-x: scroll;
   user-select: none;
- 
- 
+
+
 }
 
 
@@ -149,7 +162,7 @@ section p {
   overflow: hidden;
   margin: 25px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.6s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   display: flex;
   min-width: 650px;
 }
@@ -232,7 +245,7 @@ section p {
   height: 350px;
   perspective: 1000px;
   margin: 20px;
-  transition: transform 0.3s;
+  transition: transform 1s;
 }
 
 
@@ -264,25 +277,25 @@ section p {
 
 .back {
   transform: rotateY(180deg);
-  
+
 }
 
- .service-button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.301);
-    border: none;
-    color: white;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
+.service-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.301);
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
 
-  .service-button:hover {
-    transform: translateY(-5px);
-  }
+.service-button:hover {
+  transform: translateY(-5px);
+}
 
 
 .back p {
@@ -330,8 +343,8 @@ section p {
   padding: 10px;
   margin-top: 10px;
   width: 400px;
-   max-height: 300px;
-   overflow-y: scroll;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 
 .card-container2 {
@@ -355,8 +368,8 @@ section p {
   height: 700px;
   perspective: 1000px;
   margin: 20px;
-  
-  
+
+
 }
 
 @media screen and (max-width: 1400px) {
@@ -397,7 +410,7 @@ section p {
   width: 100%;
   height: 100%;
   position: absolute;
-  transition: transform 0.7s;
+  transition: transform 1s;
 }
 
 .card2 .front {
@@ -407,7 +420,7 @@ section p {
 .card2 .back {
   background-color: #ffffff52;
 
-  
+
 }
 
 .flip-icon {
@@ -419,7 +432,7 @@ section p {
   cursor: pointer;
 }
 
-.front p{
+.front p {
   font-size: 2vw;
 }
 
@@ -449,7 +462,7 @@ section p {
     font-size: 2.35vw;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  
+
   .back h1 {
     font-size: 2.4vw;
   }
@@ -461,7 +474,7 @@ section p {
     font-size: 3.5vw;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  
+
   .back h1 {
     font-size: 3.5vw;
   }
@@ -473,7 +486,7 @@ section p {
     font-size: 2.35vw;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  
+
   .front h1 {
     font-size: 2.4vw;
   }
@@ -485,7 +498,7 @@ section p {
     font-size: 3.5vw;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  
+
   .front h1 {
     font-size: 3.5vw;
   }
@@ -498,7 +511,7 @@ section p {
   background-color: #f2f2f2;
   padding: 50px;
   text-align: center;
-  
+
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -519,7 +532,7 @@ section p {
   flex-direction: column;
   max-width: 75%;
   justify-content: space-between;
-  
+
 }
 
 #parking-form label {
@@ -544,7 +557,7 @@ section p {
   width: 100%;
   box-sizing: border-box;
   flex-basis: calc(30% - 20px);
-  
+
 }
 
 #parking-form button {
@@ -593,9 +606,9 @@ section p {
   .parking-spot {
     width: 300px;
     height: 50px;
- 
-  
-  
+
+
+
   }
 }
 
@@ -616,7 +629,7 @@ section p {
   border: 1px solid #ccc;
   border-radius: 3px;
   background-color: #f9f9f9;
-  
+
 }
 
 /* CSS для опций в parking-type */
@@ -644,7 +657,7 @@ select {
 #parking-spot-select {
   width: 100%;
   max-width: 300px;
-  
+
 }
 
 #reserved-spaces-list {

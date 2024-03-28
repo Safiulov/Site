@@ -17,7 +17,7 @@ body {
     justify-content: center;
     background-image: url('https://catherineasquithgallery.com/uploads/posts/2021-02/1614382479_11-p-mashini-na-svetlom-fone-13.jpg');
     image-rendering: optimizeSpeed;
-    background-size: cover;
+  
 }
 
 .main {
@@ -54,6 +54,7 @@ body {
 
 .login label {
     margin: 5% 0 5%;
+    
 }
 
 label {
@@ -161,3 +162,18 @@ label {
 .form button:hover {
     background-color: #1f1f1f7e;
 }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 20px);
+    
+    
+}
+
+.button-container button{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
