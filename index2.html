@@ -4,17 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style_test.css">
-
+  <link rel="stylesheet" href="Main_style.css">
   <title>Личный кабинет</title>
+ 
 </head>
 
 <body>
   <header>
+    <!-- Создание верхнего меню -->
     <a href="#" class="logo">Меню</a>
     <nav>
       <a href="#home">Главная</a>
-      <a href="#about">Тарифы</a>
+      <a href="#tarifs">Тарифы</a>
       <a href="#services">Услуги</a>
       <a href="#contact">Контакты</a>
       <a href="#reserve">Бронь</a>
@@ -22,7 +23,10 @@
     </nav>
   </header>
   <main>
+    <!-- Раздел "Главная страница"-->
     <section id="home">
+      <h1>Главная</h1>
+      <!-- Картчока с личной информацией -->
       <div class="card-container2">
         <div class="card2">
           <div class="front">
@@ -43,16 +47,16 @@
               <label for="login">Логин:</label>
               <input type="text" id="login" name="login" value="" placeholder="example">
               <br>
-              <label for="password">Пароль:</label>
-              <input type="password" id="password" name="password">
-              <br>
               <button type="submit">Сохранить изменения</button>
+              <button  type="button" id="back-button" onclick="location.href='index3.html'"> Изменить пароль </button>
+              
             </form>
           </div>
           <div class="flip-icon" id="flip-btn">
             <i class="fas fa-arrow-right"></i>
           </div>
         </div>
+        <!-- Карточка с информацией об авто -->
         <div class="card2">
           <div class="front">
             <h2>Данные авто</h2>
@@ -61,7 +65,6 @@
             <p> Тип:<span id="Type"></span> </p>
             <p> Госномер:<span id="Number"></span> </p>
             <p> Год:<span id="Year"></span> </p>
-
           </div>
           <div class="back">
             <h1>Редактирование данных</h1>
@@ -84,135 +87,24 @@
               <button type="submit">Сохранить изменения</button>
             </form>
           </div>
-
-
-
           <div class="flip-icon" id="flip-btn2">
             <i class="fas fa-arrow-right"></i>
           </div>
         </div>
-
       </div>
     </section>
-
-    <script>
-      const updateForm = document.getElementById('update-form');
-
-      updateForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const fio = document.getElementById('fio').value;
-        const email = document.getElementById('email').value;
-        const newLogin = document.getElementById('login').value;
-        const newPassword = document.getElementById('password').value;
-        const currentLogin = sessionStorage.getItem("Login");
-
-        try {
-          const response = await fetch('/update', {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              Логин: currentLogin, // замените на текущий логин пользователя
-              ФИО: fio,
-              Почта: email,
-              НовыйЛогин: newLogin,
-              НовыйПароль: newPassword,
-            })
-          });
-
-          if (response.ok) {
-            alert("OK");
-            // Обновляем данные на странице
-            document.getElementById("Fio").textContent = fio;
-            document.getElementById("Email").textContent = email;
-            document.getElementById("Login").textContent = newLogin;
-          } else {
-            throw new Error('Ошибка при обновлении');
-          }
-        } catch (error) {
-          console.error(error);
-          alert('Ошибка при обновлении');
-        }
-      });
-    </script>
-
-    <script>
-      const updateForm2 = document.getElementById('update-form2');
-
-      updateForm2.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const marka = document.getElementById('marka').value;
-        const color = document.getElementById('color').value;
-        const type = document.getElementById('type').value;
-        const number = document.getElementById('number').value;
-        const year = document.getElementById("year").value;
-        const currentLogin = sessionStorage.getItem("Login");
-
-        try {
-          const response = await fetch('/update2', {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              // замените на текущий логин пользователя
-              марка: marka,
-              цвет: color,
-              тип: type,
-              госномер: number,
-              год: year,
-
-              Логин: currentLogin,
-            })
-          });
-
-          if (response.ok) {
-            alert("OK");
-            // Обновляем данные на странице
-            document.getElementById("Marka").textContent = marka;
-            document.getElementById("Color").textContent = color;
-            document.getElementById("Type").textContent = type;
-            document.getElementById("Number").textContent = number;
-            document.getElementById("Year").textContent = year;
-
-
-          } else {
-            throw new Error('Ошибка при обновлении');
-          }
-        } catch (error) {
-          console.error(error);
-          alert('Ошибка при обновлении');
-        }
-      });
-    </script>
-
-
-
-
-
-
-    <script>
-      document.getElementById('flip-btn').addEventListener('click', function () {
-        this.parentElement.classList.toggle('flip');
-      });
-      document.getElementById('flip-btn2').addEventListener('click', function () {
-        this.parentElement.classList.toggle('flip');
-      });
-    </script>
-
-
-    <section id="about">
+    <!-- Раздел "Тарифы"-->
+    <section id="tarifs">
       <h1>Тарифы</h1>
       <div class="card-container">
         <div class="card">
           <div class="front">
             <h2>Тариф "ДЕНЬ"</h2>
+            <button class="service-button">Подробнее</button>
           </div>
           <div class="back">
             <h2>Описание</h2>
+            <button class="service-button">Назад</button>
             <p>Парковка на период с 8:00 до 20:00</p>
             <p>Цена: 80 рублей/час</p>
           </div>
@@ -220,9 +112,10 @@
         <div class="card">
           <div class="front">
             <h2>Тариф "НОЧЬ"</h2>
+            <button class="service-button">Подробнее</button>
           </div>
           <div class="back">
-            <h2>Описание</h2>
+            <h2>Описание</h2> <button class="service-button">Назад</button>
             <p>Парковка на период с 20:00 до 8:00</p>
             <p>Цена: 60 рублей/час</p>
           </div>
@@ -230,9 +123,11 @@
         <div class="card">
           <div class="front">
             <h2>Тариф "СРЕДНИЙ"</h2>
+            <button class="service-button">Подробнее</button>
           </div>
           <div class="back">
             <h2>Описание</h2>
+            <button class="service-button">Назад</button>
             <p>Парковка на срок более 12, но не более 24 часов</p>
             <p>Цена: 65 рублей/час </p>
           </div>
@@ -240,9 +135,11 @@
         <div class="card">
           <div class="front">
             <h2>Тариф "Круглый день"</h2>
+            <button class="service-button">Подробнее</button>
           </div>
           <div class="back">
             <h2>Описание</h2>
+            <button class="service-button">Назад</button>
             <p>Парковка на сутки и более...</p>
             <p>Цена: 1000 рублей/сутки </p>
           </div>
@@ -250,14 +147,17 @@
         <div class="card">
           <div class="front">
             <h2>Тариф "СМЕШАННЫЙ"</h2>
+            <button class="service-button">Подробнее</button>
           </div>
           <div class="back">
             <h2>Описание</h2>
+            <button class="service-button">Назад</button>
             <p>До 20:00 оплата по тарифу "ДЕНЬ", после 20:00 оплата по тарифу "НОЧЬ"</p>
             <p>Цена: см.тарифы "ДЕНЬ" и "НОЧЬ" </p>
           </div>
         </div>
     </section>
+    <!-- Раздел "Услуги" -->
     <section id="services">
       <h1>Наши услуги</h1>
       <div class="services-container">
@@ -286,8 +186,7 @@
         </div>
       </div>
     </section>
-
-
+    <!-- Раздел "Контакты"-->
     <section id="contact">
 
       <head>
@@ -298,58 +197,11 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet-easybutton@2.4.0/src/easy-button.css" />
         <script src="https://unpkg.com/leaflet-easybutton@2.4.0/src/easy-button.js"></script>
       </head>
-
-      <body>
-        <div id="map" style="width: 100%; height: 800px;margin-top: 60px;"></div>
-        <script>
-          var map = L.map('map').setView([54.286741, 48.233571], 15);
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          }).addTo(map);
-
-          var marker = L.marker([54.286741, 48.233571]).addTo(map)
-            .bindPopup('<h2>CarPark</h2><p>Адрес: Баратаевский Аэропорт, Авиационная20</p><p>Телефон: +7 (920) 123-45-67</p><p>Email: carpark@example.com</p>');
-          marker.openPopup();
-
-          var focusMarkerButton = L.easyButton('fa-car', function () {
-            map.setView(marker.getLatLng(), 18);
-          });
-          focusMarkerButton.addTo(map);
-
-          var locateButton = L.easyButton('fa-location-arrow', function () {
-            map.locate({ setView: true, maxZoom: 18 });
-          });
-          locateButton.addTo(map);
-
-          var control = L.Routing.control({
-            waypoints: [
-              marker.getLatLng(),
-              map.getCenter()
-            ],
-            routeWhileDragging: true
-          });
-
-          map.on('locationfound', function (e) {
-            control.setWaypoints([e.latlng, marker.getLatLng()]);
-            control.addTo(map);
-          });
-
-          map.on('locationerror', function (e) {
-            alert("Не удалось определить ваше местоположение");
-          });
-
-          var clearRouteButton = L.easyButton('fa-times', function () {
-            // Очищаем маршрут
-            control.spliceWaypoints(0, control.getWaypoints().length);
-          });
-
-          clearRouteButton.addTo(map);
-
-        </script>
-      </body>
+      <div id="map" style="width: 100%; height: 800px;margin-top: 60px;"></div>
     </section>
-
+    <!-- Раздел "Бронирование мест" -->
     <section id="reserve">
+
       <body>
         <h1>Парковки:</h1>
         <form id="parking-form">
@@ -363,192 +215,16 @@
           <label for="Место">Место:</label>
           <input type="text" id="место" name="Место" required>
           </select>
-          <label for="date-input-1">Дата и время:</label>
-          <input type="datetime-local" id="date-input-1" name="Дата_въезда" required>
+          <label for="date-input-1" id="date-input-11">Дата въезда:</label>
+          <input type="date" id="date-input-1" name="Дата_въезда" readonly="true" required>
           <button type="submit">Найти парковку</button>
           <div id="parking-status"></div>
+          <ul id="reserved-spaces-list"></ul>
         </form>
-        <script src="script.js"></script>
+       
       </body>
     </section>
-    <script>
-     document.addEventListener('DOMContentLoaded', () => {
-  const parkingStatus = document.getElementById('parking-status');
-  const textForm = document.getElementById('parking-form');
-  const currentLogin = sessionStorage.getItem("Login");
-
-  textForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const Место = document.getElementById('место').value;
-    const Дата_въезда = document.getElementById('date-input-1').value;
-    const Тип_услуги = document.getElementById('service-select').value;
-
-    try {
-      const response = await fetch('/parking-status2', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ Место, Дата_въезда, Логин: currentLogin, Тип_услуги }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        parkingStatus.textContent = data.message;
-        alert("OK1");
-      } else {
-        const data = await response.json();
-        parkingStatus.textContent = data.message;
-        alert("NE OK!");
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      parkingStatus.textContent = 'Ошибка при добавлении автомобиля на стоянку';
-    }
-  });
-
-        fetch('/parking-status')
-          .then((res) => res.json())
-          .then((data) => {
-            data.forEach((spot) => {
-              const div = document.createElement('div');
-              div.className = 'parking-spot';
-              div.dataset.spotNumber = spot.Госномер;
-
-              if (spot.Статус === 'Занято') {
-                div.classList.add('occupied');
-              } else if (spot.Статус === 'Свободно') {
-                div.classList.add('free');
-              }
-
-              div.textContent = `${spot.Статус} ${spot.Место}`;
-
-              parkingStatus.appendChild(div);
-            });
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-      });
-    </script>
-
-
-
-  </main>
-  <script>
-    let sections = document.querySelectorAll('section');
-    let navLinks = document.querySelectorAll('header nav a');
-    let currentSection = sections[0];
-    let currentNavLink = document.querySelector('header nav a[href*=' + currentSection.getAttribute('id') + ']');
-    currentNavLink.classList.add('active');
-    window.onscroll = () => {
-      sections.forEach(sec => {
-        let top = window.scrollY;
-        let offset = sec.offsetTop - 150;
-        let height = sec.offsetHeight;
-        let id = sec.getAttribute('id');
-        if (top >= offset && top < offset + height) {
-          navLinks.forEach(links => {
-            links.classList.remove('active');
-            document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
-          });
-          document.title = document.querySelector('header nav a[href*=' + id + ']').textContent + ' - Личный кабинет';
-        };
-      });
-    };
-  </script>
-
-
-
-
-
-  <script>
-    const servicesContainer = document.querySelector('.services-container');
-    let isMouseDown = false;
-    let startX;
-    let scrollLeft;
-    servicesContainer.addEventListener('mousedown', (event) => {
-      if (event.target.id === 'scroll-prev' || event.target.id === 'scroll-next') {
-        return;
-      }
-      isMouseDown = true;
-      startX = event.clientX;
-      scrollLeft = servicesContainer.scrollLeft;
-    });
-    servicesContainer.addEventListener('mousemove', (event) => {
-      if (!isMouseDown) {
-        return;
-      }
-      const distanceX = event.clientX - startX;
-      const newScrollLeft = scrollLeft - distanceX;
-      servicesContainer.scrollTo({ left: newScrollLeft, behavior: 'instant' }); // Change 'smooth' to 'instant'
-    });
-    servicesContainer.addEventListener('mouseup', () => {
-      isMouseDown = false;
-    });
-    servicesContainer.addEventListener('mouseleave', () => {
-      isMouseDown = false;
-    });
-    document.querySelector('#scroll-prev').addEventListener('click', () => {
-      servicesContainer.scrollTo({ left: servicesContainer.scrollLeft - servicesContainer.clientWidth, behavior: 'instant' }); // Change 'smooth' to 'instant'
-    });
-    document.querySelector('#scroll-next').addEventListener('click', () => {
-      servicesContainer.scrollTo({ left: servicesContainer.scrollLeft + servicesContainer.clientWidth, behavior: 'instant' }); // Change 'smooth' to 'instant'
-    });
-  </script>
-
-
-  <script>
-    window.onload = () => {
-      const Fio = sessionStorage.getItem("Fio");
-      const Email = sessionStorage.getItem("Email");
-      const Login = sessionStorage.getItem("Login");
-      const Password = sessionStorage.getItem("Password");
-      const Marka = sessionStorage.getItem("Marka");
-      if (Marka) {
-        document.getElementById("Marka").textContent = Marka;
-      }
-      const Color = sessionStorage.getItem("Color");
-      if (Color) {
-        document.getElementById("Color").textContent = Color;
-      }
-      const Type = sessionStorage.getItem("Type");
-      if (Type) {
-        document.getElementById("Type").textContent = Type;
-      }
-      const Number = sessionStorage.getItem("Number");
-      if (Number) {
-        document.getElementById("Number").textContent = Number;
-      }
-      const Year = sessionStorage.getItem("Year");
-      if (Year) {
-        document.getElementById("Year").textContent = Year;
-      }
-      if (Login && Password) {
-        document.getElementById("Fio").textContent = Fio;
-        document.getElementById("Email").textContent = Email;
-        document.getElementById("Login").textContent = Login;
-        document.getElementById("Password").textContent = Password;
-
-
-
-
-      } else {
-        document.getElementById("Fio").textContent = "Гость";
-      }
-    };
-  </script>
-
-
-
-
-  <script>
-    function logout() {
-      sessionStorage.clear();
-      // Перенаправление на страницу авторизации
-      window.location.href = "index.html";
-    }
-  </script>
-
+    <script src="script.js"></script>
 </body>
 
 </html>

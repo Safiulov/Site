@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Register Form - CodeCraftedWeb</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Auth_style.css">
 </head>
 <body>
   <div class="container">
@@ -15,9 +15,20 @@
           <label for="chk" aria-hidden="true">Вход</label>
           <input class="input" type="text" name="Логин" placeholder="Логин" id="username" required>
           <input class="input" type="password" name="Пароль" placeholder="Пароль" id="password" required>
-          <button type="submit">Войти</button>
+          <div class="button-container">
+            <button type="submit">Войти</button>
+            <button id="forgot-password-button" type="button">Забыли пароль?</button>
+          </div>
         </form>
         <script>
+          document.getElementById("forgot-password-button").addEventListener("click", function() {
+            openIndex2();
+          });
+      
+          function openIndex2() {
+            window.location.href = "index3.html";
+          }
+      
           function login(event) {
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
@@ -33,7 +44,7 @@
               .then(data => {
                 if (data.success) {
                   // Save the login value in the session storage
-                
+      
                   sessionStorage.setItem("Fio", data.Fio);
                   sessionStorage.setItem("Email", data.Email);
                   sessionStorage.setItem("Login", data.Login);
@@ -43,7 +54,7 @@
                   sessionStorage.setItem("Type", data.Type);
                   sessionStorage.setItem("Number", data.Number);
                   sessionStorage.setItem("Year", data.Year);
-                 
+      
                   // Redirect to the main page
                   window.location.href = "index2.html";
                 } else {
@@ -101,8 +112,6 @@
                 } else {
                   if (data.message === 'Такой логин уже существует') {
                     document.getElementById("register-login-error").innerText = data.message;
-                  } else if (data.message === 'Такой пароль уже существует') {
-                    document.getElementById("register-password-error").innerText = data.message;
                   } else {
                     alert('Что-то пошло не так...');
                   }
@@ -115,5 +124,5 @@
     </div>
   </div>
 </body>
-<script src="/html-css-js-postgresql/app.js"></script>
+
 </html>
