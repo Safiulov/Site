@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Main_style.css">
+  <title>Личный кабинет</title>
+ 
+</head>
+
+<body>
+  <header>
+    <!-- Создание верхнего меню -->
+    <a href="#" class="logo">Меню</a>
+    <nav>
+      <a href="#home">Главная</a>
+      <a href="#tarifs">Тарифы</a>
+      <a href="#services">Услуги</a>
+      <a href="#contact">Контакты</a>
+      <a href="#reserve">Бронь</a>
+      <a href="#" onclick="logout()">Выйти</a>
+    </nav>
+  </header>
+  <main>
+    <!-- Раздел "Главная страница"-->
+    <section id="home">
+      <h1>Главная</h1>
+      <!-- Картчока с личной информацией -->
+      <div class="card-container2">
+        <div class="card2">
+          <div class="front">
+            <h2>Персональные данные</h2>
+            <p> ФИО:<span id="Fio"></span> </p>
+            <p> Email:<span id="Email"></span> </p>
+            <p> Логин:<span id="Login"></span> </p>
+          </div>
+          <div class="back">
+            <h1>Редактирование данных</h1>
+            <form id="update-form">
+              <label for="fio">ФИО:</label>
+              <input type="text" id="fio" name="fio" value="" placeholder="example">
+              <br>
+              <label for="email">Электронная почта:</label>
+              <input type="email" id="email" name="email" value="" placeholder="example@example.com">
+              <br>
+              <label for="login">Логин:</label>
+              <input type="text" id="login" name="login" value="" placeholder="example">
+              <br>
+              <button type="submit">Сохранить изменения</button>
+              <button  type="button" id="back-button" onclick="location.href='index3.html'"> Изменить пароль </button>
+              
+            </form>
+          </div>
+          <div class="flip-icon" id="flip-btn">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+        <!-- Карточка с информацией об авто -->
+        <div class="card2">
+          <div class="front">
+            <h2>Данные авто</h2>
+            <p> Марка:<span id="Marka"></span> </p>
+            <p> Цвет:<span id="Color"></span> </p>
+            <p> Тип:<span id="Type"></span> </p>
+            <p> Госномер:<span id="Number"></span> </p>
+            <p> Год:<span id="Year"></span> </p>
+          </div>
+          <div class="back">
+            <h1>Редактирование данных</h1>
+            <form id="update-form2">
+              <label for="marka">Марка:</label>
+              <input type="text" id="marka" name="marka" value="" placeholder="example">
+              <br>
+              <label for="color">Цвет:</label>
+              <input type="text" id="color" name="color" value="" placeholder="example@example.com">
+              <br>
+              <label for="type">Тип:</label>
+              <input type="text" id="type" name="type" value="" placeholder="example">
+              <br>
+              <label for="number">Госномер:</label>
+              <input type="text" id="number" name="number" value="" placeholder="example">
+              <br>
+              <label for="year">Год:</label>
+              <input type="year" id="year" name="year" value="" placeholder="example">
+              <br>
+              <button type="submit">Сохранить изменения</button>
+            </form>
+          </div>
+          <div class="flip-icon" id="flip-btn2">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Раздел "Тарифы"-->
+    <section id="tarifs">
+      <h1>Тарифы</h1>
+      <div class="card-container">
+        <div class="card">
+          <div class="front">
+            <h2>Тариф "ДЕНЬ"</h2>
+            <button class="service-button">Подробнее</button>
+          </div>
+          <div class="back">
+            <h2>Описание</h2>
+            <button class="service-button">Назад</button>
+            <p>Парковка на период с 8:00 до 20:00</p>
+            <p>Цена: 80 рублей/час</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="front">
+            <h2>Тариф "НОЧЬ"</h2>
+            <button class="service-button">Подробнее</button>
+          </div>
+          <div class="back">
+            <h2>Описание</h2> <button class="service-button">Назад</button>
+            <p>Парковка на период с 20:00 до 8:00</p>
+            <p>Цена: 60 рублей/час</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="front">
+            <h2>Тариф "СРЕДНИЙ"</h2>
+            <button class="service-button">Подробнее</button>
+          </div>
+          <div class="back">
+            <h2>Описание</h2>
+            <button class="service-button">Назад</button>
+            <p>Парковка на срок более 12, но не более 24 часов</p>
+            <p>Цена: 65 рублей/час </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="front">
+            <h2>Тариф "Круглый день"</h2>
+            <button class="service-button">Подробнее</button>
+          </div>
+          <div class="back">
+            <h2>Описание</h2>
+            <button class="service-button">Назад</button>
+            <p>Парковка на сутки и более...</p>
+            <p>Цена: 1000 рублей/сутки </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="front">
+            <h2>Тариф "СМЕШАННЫЙ"</h2>
+            <button class="service-button">Подробнее</button>
+          </div>
+          <div class="back">
+            <h2>Описание</h2>
+            <button class="service-button">Назад</button>
+            <p>До 20:00 оплата по тарифу "ДЕНЬ", после 20:00 оплата по тарифу "НОЧЬ"</p>
+            <p>Цена: см.тарифы "ДЕНЬ" и "НОЧЬ" </p>
+          </div>
+        </div>
+    </section>
+    <!-- Раздел "Услуги" -->
+    <section id="services">
+      <h1>Наши услуги</h1>
+      <div class="services-container">
+        <div class="service-card" title="Тент-чехол для машины"
+          style="background-image: url('https://vatanbranda.com/wp-content/uploads/2021/01/portatif-araba-cadiri.jpg');">
+          <h2>Тент-чехол для машины на стоянке</h2>
+          <p>Мы предлагаем услугу по защите автомобиля с помощью тент-чехлов на стоянке, которые будет защищать вашу
+            машину от непогоды и механических повреждений.
+            Тент-чехол будет идеально подходить для автомобилей, мотоциклов и других транспортных средств.</p>
+        </div>
+        <div class="service-card" title="Подкачка"
+          style="background-image: url('https://img.freepik.com/free-photo/technician-is-inflate-car-tire-car-maintenance-service-transportation-safety_1150-18090.jpg?w=1380&t=st=1710355673~exp=1710356273~hmac=b17e04a2399e3b2d5bdce7606f5250dfae1f6143431baad2be162feafa83ff04');">
+          <h2>Подкачка</h2>
+          <p>Мы предлагаем услугу по подкачке шин на стоянке, которая будет помогать продлить срок службы ваших шин и
+            обеспечить безопасность вождения.
+            Подкачка шин будет проводиться с использованием современных станков и высококвалифицированных специалистов.
+            Услуга подкачки шин будет подходить для автомобилей, мотоциклов и других транспортных средств</p>
+        </div>
+        <div class="service-card" title="Мойка"
+          style="background-image: url('https://img.freepik.com/free-photo/beautiful-car-washing-service_23-2149212222.jpg?t=st=1710356117~exp=1710359717~hmac=d642b88ca1a0c7f459748d7e142aa7b7b759e19c790827ad7aa752aff3c98fa8&w=740');">
+          <h2>Мойка</h2>
+          <p>Мы предлагаем услугу полной мойки автомобиля, которая включает в себя тщательную очистку всех частей вашего
+            автомобиля. Наша мойка включает в себя ручную очистку кузова, очистку колес, стекол и подножек. Мы
+            используем только экологически чистые и безопасные для автомобиля средства. Полная мойка автомобиля поможет
+            сохранить внешний вид вашего автомобиля и продлить срок его службы</p>
+        </div>
+      </div>
+    </section>
+    <!-- Раздел "Контакты"-->
+    <section id="contact">
+
+      <head>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-easybutton@2.4.0/src/easy-button.css" />
+        <script src="https://unpkg.com/leaflet-easybutton@2.4.0/src/easy-button.js"></script>
+      </head>
+      <div id="map" style="width: 100%; height: 800px;margin-top: 60px;"></div>
+    </section>
+    <!-- Раздел "Бронирование мест" -->
+    <section id="reserve">
+
+      <body>
+        <h1>Парковки:</h1>
+        <form id="parking-form">
+          <label for="service-select">Выберите услугу:</label>
+          <select id="service-select" name="Тип_услуги" required>
+            <option value="">Выберите услугу</option>
+            <option value="1">Резервирование</option>
+            <option value="2">Бронь на месяц</option>
+            <option value="3">Бронь на год</option>
+          </select>
+          <label for="Место">Место:</label>
+          <input type="text" id="место" name="Место" required>
+          </select>
+          <label for="date-input-1" id="date-input-11">Дата въезда:</label>
+          <input type="date" id="date-input-1" name="Дата_въезда" readonly="true" required>
+          <button type="submit">Найти парковку</button>
+          <div id="parking-status"></div>
+          <ul id="reserved-spaces-list"></ul>
+        </form>
+       
+      </body>
+    </section>
+    <script src="script.js"></script>
+</body>
+
+</html>
