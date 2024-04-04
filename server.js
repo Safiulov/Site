@@ -140,9 +140,7 @@ app.post('/register', async (req, res) => {
     res.status(500).json({ message: 'Error registering user' });
   }
 });
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+
 
 app.put('/update', async (req, res) => {
   const { Логин, ФИО, Почта, НовыйЛогин } = req.body;
@@ -250,3 +248,6 @@ app.post('/check-email', async (req, res) => {
   });
 
 
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});

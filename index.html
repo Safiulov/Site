@@ -68,9 +68,7 @@
         <form class="form" onsubmit="event.preventDefault(); register(event)">
           <label for="chk" aria-hidden="true">Регистрация</label>
           <input class="input" type="text" name="Логин" placeholder="Логин" required>
-          <span id="register-login-error" style="color: red;"></span>
           <input class="input" type="password" name="Пароль" placeholder="Пароль" required>
-          <span id="register-password-error" style="color: red;"></span>
           <input class="input" type="text" name="ФИО" placeholder="ФИО" required>
           <input class="input" type="date" name="Дата_рождения" placeholder="Дата_рождения" required>
           <input class="input" type="text" name="Почта" placeholder="Почта" required>
@@ -97,8 +95,8 @@
               Госномер: formData.get('Госномер'),
               Год: formData.get('Год')
             };
-            // Send a request to the server to register the user
-            fetch('/register', {
+           // Send a request to the server to register the user
+           fetch('/register', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -110,11 +108,8 @@
                 if (data.success) {
                   document.querySelector('label[for="chk"]').click();
                 } else {
-                  if (data.message === 'Такой логин уже существует') {
-                    document.getElementById("register-login-error").innerText = data.message;
-                  } else {
-                    alert('Что-то пошло не так...');
-                  }
+                 alert('Измените логин');
+                  
                 }
               });
           }
