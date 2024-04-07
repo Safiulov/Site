@@ -80,6 +80,7 @@ var clearRouteButton = L.easyButton("fa-times", function () {
   control.spliceWaypoints(0, control.getWaypoints().length);
 });
 clearRouteButton.addTo(map);
+
 const updateUserForm = document.getElementById("update-form");
 updateUserForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -158,6 +159,8 @@ updateCarForm.addEventListener("submit", async (event) => {
 function updateUserData(fio, email) {
   document.getElementById("Fio").textContent = fio;
   document.getElementById("Email").textContent = email;
+  sessionStorage.setItem("Fio", fio);
+  sessionStorage.setItem("Email", email);
 }
 
 function updateCarData(marka, color, type, number, year) {
@@ -181,6 +184,7 @@ async function getReservedSpaces() {
       const reservedSpacesList = document.getElementById(
         "reserved-spaces-list"
       );
+      reservedSpacesList.innerHTML = ""; // Clear existing reservations
       data.forEach((space) => {
         const li = document.createElement("li");
         const date = new Date(space.дата_въезда).toLocaleString("ru-RU", {
@@ -203,7 +207,6 @@ async function getReservedSpaces() {
     alert(error.message);
   }
 }
-getReservedSpaces();
 
 document.getElementById("service-select").addEventListener("change", function () {
   if (this.value === "2") {
@@ -236,6 +239,7 @@ serviceSelect.addEventListener("change", (event) => {
     dateInput.min = new Date(today.getTime() + 24 * 60 * 60)
       .toISOString()
       .slice(0, -8);
+    
   } else {
     dateInput.type = "date";
     if (event.target.value === "2") {
@@ -259,11 +263,11 @@ serviceSelect.addEventListener("change", (event) => {
       }
     }
 });
-
 document.addEventListener("DOMContentLoaded", () => {
   const parkingStatus = document.getElementById("parking-status");
   const textForm = document.getElementById("parking-form");
   const currentLogin = sessionStorage.getItem("Login");
+
   textForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     const Место = document.getElementById("место").value;
@@ -280,22 +284,55 @@ document.addEventListener("DOMContentLoaded", () => {
           Тип_услуги,
         }),
       });
-
+      if (Тип_услуги === "1" && Место.startsWith("B")) {
+        alert("Резервирование доступно только для мест секции 'A'");
+        return;
+      }
+      if ((Тип_услуги === "2" || Тип_услуги === "3") && Место.startsWith("A")) {
+        alert("Бронирование доступно только для мест секции 'В'");
+        return;
+      }
       if (response.ok) {
-        alert("Запись добавлена в журнал..");
+        alert("Запись добавлена в журнал.");
+        // Clear form fields after successful submission
+        document.getElementById("место").value = "";
+        document.getElementById("date-input-1").value = "";
+        document.getElementById("service-select").value = "";
+
+        // Fetch updated parking status and update the DOM
+        fetch("/parking-status")
+          .then((res) => res.json())
+          .then((data) => {
+            parkingStatus.innerHTML = ""; // Clear existing parking spots
+            data.forEach((spot) => {
+              const div = document.createElement("div");
+              div.className = "parking-spot";
+              if (spot.статус === "Занято") {
+                div.classList.add("occupied");
+              } else if (spot.статус === "Свободно") {
+                div.classList.add("free");
+              }
+              div.textContent = `${spot.статус} ${spot.место}`;
+              parkingStatus.appendChild(div);
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+            alert(error.message);
+          });
+
+        // Fetch updated reserved spaces and update the DOM
+        getReservedSpaces();
       } else {
-        const error = await response.json();
-        if (error.hasOwnProperty('success')) {
-          alert(error.message);
-        } else {
-          throw new Error(error.error);
-        }
+        alert("Ошибка при добавлении записи.");
       }
     } catch (error) {
       console.error(error);
       alert(error.message);
     }
   });
+
+  // Initial fetch for parking status on page load
   fetch("/parking-status")
     .then((res) => res.json())
     .then((data) => {
@@ -315,7 +352,11 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(error);
       alert(error.message);
     });
+
+  // Initial fetch for reserved spaces on page load
+  getReservedSpaces();
 });
+
 
 let sections = document.querySelectorAll("section");
 let navLinks = document.querySelectorAll("header nav a");
@@ -343,32 +384,37 @@ window.onscroll = () => {
     }
   });
 };
-const servicesContainer = document.querySelector(".services-container");
-var isMouseDown = false;
-let startX, scrollLeft;
-servicesContainer.addEventListener('mousedown', (e) => {
+const servicesContainer = document.querySelector('.services-container');
+let isMouseDown = false;
+let startX;
+let scrollLeft;
+servicesContainer.addEventListener('mousedown', (event) => {
+  if (event.target.id === 'scroll-prev' || event.target.id === 'scroll-next') {
+    return;
+  }
   isMouseDown = true;
-  startX = e.pageX - servicesContainer.offsetLeft;
+  startX = event.clientX;
   scrollLeft = servicesContainer.scrollLeft;
 });
-document.addEventListener("mousemove", (e) => {
-  if (isMouseDown) {
-    e.preventDefault();
-    const x = e.pageX - servicesContainer.offsetLeft;
-    const scroll = (x - startX) * 10;
-    servicesContainer.scrollTo(scrollLeft - scroll, 0);
+servicesContainer.addEventListener('mousemove', (event) => {
+  if (!isMouseDown) {
+    return;
   }
+  const distanceX = event.clientX - startX;
+  const newScrollLeft = scrollLeft - distanceX;
+  servicesContainer.scrollTo({ left: newScrollLeft, behavior: 'instant' }); // Change 'smooth' to 'instant'
 });
-window.addEventListener("mouseup", () => {
+servicesContainer.addEventListener('mouseup', () => {
   isMouseDown = false;
 });
-
-document.querySelector("#scroll-prev").addEventListener("click", () => {
-  servicesContainer.scrollLeft -= servicesContainer.clientWidth;
+servicesContainer.addEventListener('mouseleave', () => {
+  isMouseDown = false;
 });
-
-document.querySelector("#scroll-next").addEventListener("click", () => {
-  servicesContainer.scrollLeft += servicesContainer.clientWidth;
+document.querySelector('#scroll-prev').addEventListener('click', () => {
+  servicesContainer.scrollTo({ left: servicesContainer.scrollLeft - servicesContainer.clientWidth, behavior: 'instant' }); // Change 'smooth' to 'instant'
+});
+document.querySelector('#scroll-next').addEventListener('click', () => {
+  servicesContainer.scrollTo({ left: servicesContainer.scrollLeft + servicesContainer.clientWidth, behavior: 'instant' }); // Change 'smooth' to 'instant'
 });
 
 function logout() {
