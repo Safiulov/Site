@@ -169,9 +169,15 @@ function updateCarData(marka, color, type, number, year) {
   document.getElementById("Type").textContent = type;
   document.getElementById("Number").textContent = number;
   document.getElementById("Year").textContent = year;
+  sessionStorage.setItem("Marka", marka);
+  sessionStorage.setItem("Color", color);
+  sessionStorage.setItem("Type", type);
+  sessionStorage.setItem("Number", number);
+  sessionStorage.setItem("Year", year);
 }
 
 function updateLogin(newLogin) {
+  document.getElementById("Login").textContent = newLogin;
   sessionStorage.setItem("Login", newLogin);
 }
 
