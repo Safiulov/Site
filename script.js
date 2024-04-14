@@ -1,25 +1,29 @@
+// Функция выполняется при загрузке страницы
 window.onload = () => {
+  // Получение данных из сессионного хранилища
   const Fio = sessionStorage.getItem("Fio");
   const Email = sessionStorage.getItem("Email");
   const Login = sessionStorage.getItem("Login");
   const Password = sessionStorage.getItem("Password");
   const Marka = sessionStorage.getItem("Marka");
+  const Color = sessionStorage.getItem("Color");
+  const Type = sessionStorage.getItem("Type");
+  const Number = sessionStorage.getItem("Number");
+  const Year = sessionStorage.getItem("Year");
+
+  // Отображение данных на странице
   if (Marka) {
     document.getElementById("Marka").textContent = Marka;
   }
-  const Color = sessionStorage.getItem("Color");
   if (Color) {
     document.getElementById("Color").textContent = Color;
   }
-  const Type = sessionStorage.getItem("Type");
   if (Type) {
     document.getElementById("Type").textContent = Type;
   }
-  const Number = sessionStorage.getItem("Number");
   if (Number) {
     document.getElementById("Number").textContent = Number;
   }
-  const Year = sessionStorage.getItem("Year");
   if (Year) {
     document.getElementById("Year").textContent = Year;
   }
@@ -27,17 +31,20 @@ window.onload = () => {
     document.getElementById("Fio").textContent = Fio;
     document.getElementById("Email").textContent = Email;
     document.getElementById("Login").textContent = Login;
-    document.getElementById("Password").textContent = Password;
   } else {
     document.getElementById("Fio").textContent = "Гость";
   }
 };
+
+// Функция переворачивает карточку при нажатии на кнопку
 document.getElementById("flip-btn").addEventListener("click", function () {
   this.parentElement.classList.toggle("flip");
 });
 document.getElementById("flip-btn2").addEventListener("click", function () {
   this.parentElement.classList.toggle("flip");
 });
+
+// Обработчик события для кнопок сервисов на карточках
 const cardButtons = document.querySelectorAll(".service-button");
 cardButtons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -45,25 +52,35 @@ cardButtons.forEach((button) => {
     card.classList.toggle("flip");
   });
 });
+
+// Инициализация карты OpenStreetMap
 var map = L.map("map").setView([54.286741, 48.233571], 15);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
+
+// Добавление маркера на карту
 var marker = L.marker([54.286741, 48.233571])
- .addTo(map)
- .bindPopup(
+  .addTo(map)
+  .bindPopup(
     "<h2>CarPark</h2><p>Адрес: Баратаевский Аэропорт, Авиационная20</p><p>Телефон: +7 (920) 123-45-67</p><p>Email: carpark@example.com</p>"
   );
 marker.openPopup();
+
+// Кнопка фокусировки на маркере
 var focusMarkerButton = L.easyButton("fa-car", function () {
   map.setView(marker.getLatLng(), 18);
 });
 focusMarkerButton.addTo(map);
+
+// Кнопка определения текущего местоположения
 var locateButton = L.easyButton("fa-location-arrow", function () {
   map.locate({ setView: true, maxZoom: 18 });
 });
 locateButton.addTo(map);
+
+// Контрол маршрутизации
 var control = L.Routing.control({
   waypoints: [marker.getLatLng(), map.getCenter()],
   routeWhileDragging: true,
@@ -75,15 +92,19 @@ map.on("locationfound", function (e) {
 map.on("locationerror", function (e) {
   alert("Не удалось определить ваше местоположение");
 });
+
+// Кнопка очистки маршрута
 var clearRouteButton = L.easyButton("fa-times", function () {
   // Очищаем маршрут
   control.spliceWaypoints(0, control.getWaypoints().length);
 });
 clearRouteButton.addTo(map);
 
+// Обработчик отправки формы обновления данных пользователя
 const updateUserForm = document.getElementById("update-form");
 updateUserForm.addEventListener("submit", async (event) => {
   event.preventDefault();
+  // Получение данных из формы
   const fio = document.getElementById("fio").value;
   const email = document.getElementById("email").value;
   const newLogin = document.getElementById("login").value;
@@ -105,8 +126,9 @@ updateUserForm.addEventListener("submit", async (event) => {
 
     if (response.ok) {
       alert("Данные обновлены");
-      updateLogin(newLogin);
+      // Обновление данных в сессионном хранилище и на странице
       updateUserData(fio, email);
+      updateLogin(newLogin);
     } else {
       alert("Измените логин...")
       const error = await response.json();
@@ -114,13 +136,15 @@ updateUserForm.addEventListener("submit", async (event) => {
     }
   } catch (error) {
     console.error(error);
-   
+    alert(error.message);
   }
 });
 
+// Обработчик отправки формы обновления данных автомобиля
 const updateCarForm = document.getElementById("update-form2");
 updateCarForm.addEventListener("submit", async (event) => {
   event.preventDefault();
+  // Получение данных из формы
   const marka = document.getElementById("marka").value;
   const color = document.getElementById("color").value;
   const type = document.getElementById("type").value;
@@ -146,6 +170,7 @@ updateCarForm.addEventListener("submit", async (event) => {
 
     if (response.ok) {
       alert("Данные обновлены");
+      // Обновление данных в сессионном хранилище и на странице
       updateCarData(marka, color, type, number, year);
     } else {
       throw new Error("Ошибка при обновлении");
@@ -156,6 +181,7 @@ updateCarForm.addEventListener("submit", async (event) => {
   }
 });
 
+// Функция обновления данных пользователя на странице
 function updateUserData(fio, email) {
   document.getElementById("Fio").textContent = fio;
   document.getElementById("Email").textContent = email;
@@ -163,6 +189,7 @@ function updateUserData(fio, email) {
   sessionStorage.setItem("Email", email);
 }
 
+// Функция обновления данных автомобиля на странице
 function updateCarData(marka, color, type, number, year) {
   document.getElementById("Marka").textContent = marka;
   document.getElementById("Color").textContent = color;
@@ -176,11 +203,13 @@ function updateCarData(marka, color, type, number, year) {
   sessionStorage.setItem("Year", year);
 }
 
+// Функция обновления логина в сессионном хранилище и на странице
 function updateLogin(newLogin) {
   document.getElementById("Login").textContent = newLogin;
   sessionStorage.setItem("Login", newLogin);
 }
 
+// Функция получения данных о зарезервированных местах
 async function getReservedSpaces() {
   const username = sessionStorage.getItem("Login");
   try {
@@ -190,7 +219,7 @@ async function getReservedSpaces() {
       const reservedSpacesList = document.getElementById(
         "reserved-spaces-list"
       );
-      reservedSpacesList.innerHTML = ""; // Clear existing reservations
+      reservedSpacesList.innerHTML = ""; // Очистка списка зарезервированных мест
       data.forEach((space) => {
         const li = document.createElement("li");
         const date = new Date(space.дата_въезда).toLocaleString("ru-RU", {
@@ -214,6 +243,7 @@ async function getReservedSpaces() {
   }
 }
 
+// Обработчик события изменения выбранной услуги
 document.getElementById("service-select").addEventListener("change", function () {
   if (this.value === "2") {
     const today = new Date();
@@ -234,6 +264,7 @@ document.getElementById("service-select").addEventListener("change", function ()
   }
 })
 
+// Обработчик события изменения выбранной услуги
 const serviceSelect = document.getElementById("service-select");
 const dateInput = document.getElementById("date-input-1");
 
@@ -269,13 +300,17 @@ serviceSelect.addEventListener("change", (event) => {
       }
     }
 });
+
+// Обработчик события загрузки документа
 document.addEventListener("DOMContentLoaded", () => {
   const parkingStatus = document.getElementById("parking-status");
   const textForm = document.getElementById("parking-form");
   const currentLogin = sessionStorage.getItem("Login");
 
+  // Обработчик отправки формы резервирования парковочного места
   textForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    // Получение данных из формы
     const Место = document.getElementById("место").value;
     const Дата_въезда = document.getElementById("date-input-1").value;
     const Тип_услуги = document.getElementById("service-select").value;
@@ -300,16 +335,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (response.ok) {
         alert("Запись добавлена в журнал.");
-        // Clear form fields after successful submission
+        // Очистка полей формы
         document.getElementById("место").value = "";
         document.getElementById("date-input-1").value = "";
         document.getElementById("service-select").value = "";
 
-        // Fetch updated parking status and update the DOM
+        // Обновление статуса парковки на странице
         fetch("/parking-status")
           .then((res) => res.json())
           .then((data) => {
-            parkingStatus.innerHTML = ""; // Clear existing parking spots
+            parkingStatus.innerHTML = ""; // Очистка статуса парковки
             data.forEach((spot) => {
               const div = document.createElement("div");
               div.className = "parking-spot";
@@ -327,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert(error.message);
           });
 
-        // Fetch updated reserved spaces and update the DOM
+        // Обновление списка зарезервированных мест
         getReservedSpaces();
       } else {
         alert("Ошибка при добавлении записи.");
@@ -338,7 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Initial fetch for parking status on page load
+  // Обновление статуса парковки на странице при загрузке документа
   fetch("/parking-status")
     .then((res) => res.json())
     .then((data) => {
@@ -359,11 +394,11 @@ document.addEventListener("DOMContentLoaded", () => {
       alert(error.message);
     });
 
-  // Initial fetch for reserved spaces on page load
+  // Обновление списка зарезервированных мест при загрузке документа
   getReservedSpaces();
 });
 
-
+// Функция скроллинга по секциям
 let sections = document.querySelectorAll("section");
 let navLinks = document.querySelectorAll("header nav a");
 let currentSection = sections[0];
@@ -390,6 +425,8 @@ window.onscroll = () => {
     }
   });
 };
+
+// Функционал скроллинга сервисов
 const servicesContainer = document.querySelector('.services-container');
 let isMouseDown = false;
 let startX;
@@ -423,8 +460,10 @@ document.querySelector('#scroll-next').addEventListener('click', () => {
   servicesContainer.scrollTo({ left: servicesContainer.scrollLeft + servicesContainer.clientWidth, behavior: 'instant' }); // Change 'smooth' to 'instant'
 });
 
+// Функция выхода из системы
 function logout() {
   sessionStorage.clear();
-  window.location.replace("index.html");
+  window.location.replace("index2.html");
 }
+
 
