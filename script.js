@@ -33,6 +33,13 @@ window.onload = () => {
     document.getElementById("Login").textContent = Login;
   } else {
     document.getElementById("Fio").textContent = "Гость";
+    document.getElementById("Email").textContent = "Не зарегистрирован";
+    document.getElementById("Login").textContent = "Не зарегистрирован";
+    document.getElementById("Marka").textContent = "Нет данных";
+    document.getElementById("Color").textContent = "Нет данных";
+    document.getElementById("Type").textContent = "Нет данных";
+    document.getElementById("Number").textContent = "Нет данных";
+    document.getElementById("Year").textContent = "Нет данных";
   }
 };
 
@@ -130,7 +137,7 @@ updateUserForm.addEventListener("submit", async (event) => {
       updateUserData(fio, email);
       updateLogin(newLogin);
     } else {
-      alert("Измените логин...")
+      alert("Измените логин...");
       const error = await response.json();
       throw new Error(error.error);
     }
@@ -244,39 +251,42 @@ async function getReservedSpaces() {
 }
 
 // Обработчик события изменения выбранной услуги
-document.getElementById("service-select").addEventListener("change", function () {
-  if (this.value === "2") {
-    const today = new Date();
-    const oneMonthFromNow = new Date();
-    oneMonthFromNow.setMonth(today.getMonth() + 1);
-    const dateInput = document.getElementById("date-input-1");
-    dateInput.valueAsDate = oneMonthFromNow;
-    dateInput.min = new Date(
-      today.getTime() + 24 * 60 * 60 * 1000
-    ).toISOString().slice(0, -8)
-  } else if (this.value === "3") {
-    const today = new Date();
-    const oneYearFromNow = new Date();
-    oneYearFromNow.setFullYear(today.getFullYear() + 1);
-    const dateInput = document.getElementById("date-input-1");
-    dateInput.valueAsDate = oneYearFromNow;
-    dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0, -8);
-  }
-})
+document
+  .getElementById("service-select")
+  .addEventListener("change", function () {
+    if (this.value === "2") {
+      const today = new Date();
+      const oneMonthFromNow = new Date();
+      oneMonthFromNow.setMonth(today.getMonth() + 1);
+      const dateInput = document.getElementById("date-input-1");
+      dateInput.valueAsDate = oneMonthFromNow;
+      dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, -8);
+    } else if (this.value === "3") {
+      const today = new Date();
+      const oneYearFromNow = new Date();
+      oneYearFromNow.setFullYear(today.getFullYear() + 1);
+      const dateInput = document.getElementById("date-input-1");
+      dateInput.valueAsDate = oneYearFromNow;
+      dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, -8);
+    }
+  });
 
 // Обработчик события изменения выбранной услуги
 const serviceSelect = document.getElementById("service-select");
 const dateInput = document.getElementById("date-input-1");
 
 serviceSelect.addEventListener("change", (event) => {
-   if (event.target.value === "1") {
+  if (event.target.value === "1") {
     const today = new Date();
     dateInput.type = "datetime-local";
     dateInput.readOnly = false;
     dateInput.min = new Date(today.getTime() + 24 * 60 * 60)
       .toISOString()
       .slice(0, -8);
-    
   } else {
     dateInput.type = "date";
     if (event.target.value === "2") {
@@ -284,21 +294,29 @@ serviceSelect.addEventListener("change", (event) => {
       const oneMonthFromNow = new Date();
       oneMonthFromNow.setMonth(today.getMonth() + 1);
       dateInput.valueAsDate = oneMonthFromNow;
-      dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0, -8);
+      dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, -8);
       dateInput.max = new Date(
         oneMonthFromNow.getTime() + 24 * 60 * 60 * 1000 * 30
-      ).toISOString().slice(0, -8);
+      )
+        .toISOString()
+        .slice(0, -8);
     } else if (event.target.value === "3") {
       const today = new Date();
       const oneYearFromNow = new Date();
       oneYearFromNow.setFullYear(today.getFullYear() + 1);
       dateInput.valueAsDate = oneYearFromNow;
-      dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0, -8);
+      dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, -8);
       dateInput.max = new Date(
         oneYearFromNow.getTime() + 24 * 60 * 60 * 1000 * 365
-      ).toISOString().slice(0, -8);
-      }
+      )
+        .toISOString()
+        .slice(0, -8);
     }
+  }
 });
 
 // Обработчик события загрузки документа
@@ -402,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
 let sections = document.querySelectorAll("section");
 let navLinks = document.querySelectorAll("header nav a");
 let currentSection = sections[0];
-let currentNavLink= document.querySelector(
+let currentNavLink = document.querySelector(
   "header nav a[href*=" + currentSection.getAttribute("id") + "]"
 );
 currentNavLink.classList.add("active");
@@ -427,43 +445,47 @@ window.onscroll = () => {
 };
 
 // Функционал скроллинга сервисов
-const servicesContainer = document.querySelector('.services-container');
+const servicesContainer = document.querySelector(".services-container");
 let isMouseDown = false;
 let startX;
 let scrollLeft;
-servicesContainer.addEventListener('mousedown', (event) => {
-  if (event.target.id === 'scroll-prev' || event.target.id === 'scroll-next') {
+servicesContainer.addEventListener("mousedown", (event) => {
+  if (event.target.id === "scroll-prev" || event.target.id === "scroll-next") {
     return;
   }
   isMouseDown = true;
   startX = event.clientX;
   scrollLeft = servicesContainer.scrollLeft;
 });
-servicesContainer.addEventListener('mousemove', (event) => {
+servicesContainer.addEventListener("mousemove", (event) => {
   if (!isMouseDown) {
     return;
   }
   const distanceX = event.clientX - startX;
   const newScrollLeft = scrollLeft - distanceX;
-  servicesContainer.scrollTo({ left: newScrollLeft, behavior: 'instant' }); // Change 'smooth' to 'instant'
+  servicesContainer.scrollTo({ left: newScrollLeft, behavior: "instant" }); // Change 'smooth' to 'instant'
 });
-servicesContainer.addEventListener('mouseup', () => {
+servicesContainer.addEventListener("mouseup", () => {
   isMouseDown = false;
 });
-servicesContainer.addEventListener('mouseleave', () => {
+servicesContainer.addEventListener("mouseleave", () => {
   isMouseDown = false;
 });
-document.querySelector('#scroll-prev').addEventListener('click', () => {
-  servicesContainer.scrollTo({ left: servicesContainer.scrollLeft - servicesContainer.clientWidth, behavior: 'instant' }); // Change 'smooth' to 'instant'
+document.querySelector("#scroll-prev").addEventListener("click", () => {
+  servicesContainer.scrollTo({
+    left: servicesContainer.scrollLeft - servicesContainer.clientWidth,
+    behavior: "instant",
+  }); // Change 'smooth' to 'instant'
 });
-document.querySelector('#scroll-next').addEventListener('click', () => {
-  servicesContainer.scrollTo({ left: servicesContainer.scrollLeft + servicesContainer.clientWidth, behavior: 'instant' }); // Change 'smooth' to 'instant'
+document.querySelector("#scroll-next").addEventListener("click", () => {
+  servicesContainer.scrollTo({
+    left: servicesContainer.scrollLeft + servicesContainer.clientWidth,
+    behavior: "instant",
+  }); // Change 'smooth' to 'instant'
 });
 
 // Функция выхода из системы
 function logout() {
   sessionStorage.clear();
-  window.location.replace("index2.html");
+  location.reload();
 }
-
-

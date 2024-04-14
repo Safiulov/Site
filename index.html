@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="Main_style.css">
   <title>Личный кабинет</title>
- 
+
 </head>
 
 <body>
@@ -18,7 +18,8 @@
       <a href="#tarifs">Тарифы</a>
       <a href="#services">Услуги</a>
       <a href="#contact">Контакты</a>
-      ̶<a href="#reserve">Бронь</a>̶
+      <a href="#reserve">Бронь</a>
+
       <script>
         // Проверяем, есть ли данные в сессионном хранилище
         if (sessionStorage.getItem("Login")) {
@@ -57,11 +58,11 @@
               <input type="text" id="login" name="login" value="" placeholder="example">
               <br>
               <button type="submit">Сохранить изменения</button>
-              <button  type="button" id="back-button" onclick="location.href='index3.html'"> Изменить пароль </button>
-              
+              <button type="button" id="back-button" onclick="location.href='index3.html'"> Изменить пароль </button>
+
             </form>
           </div>
-          <div class="flip-icon" id="flip-btn" >
+          <div class="flip-icon" id="flip-btn" onclick="showEditForm()">
             <i class="fas fa-arrow-right"></i>
           </div>
         </div>
@@ -96,12 +97,25 @@
               <button type="submit">Сохранить изменения</button>
             </form>
           </div>
-          <div class="flip-icon" id="flip-btn2">
+          <div class="flip-icon" id="flip-btn2" onclick="showEditForm2()">
             <i class="fas fa-arrow-right"></i>
           </div>
         </div>
       </div>
     </section>
+    <script>
+      function showEditForm() {
+        if (!sessionStorage.getItem("Login")) {
+          document.getElementById("update-form").style.display = "none";
+        }
+      }
+
+      function showEditForm2() {
+        if (!sessionStorage.getItem("Login")) {
+          document.getElementById("update-form2").style.display = "none";
+        }
+      }
+    </script>
     <!-- Раздел "Тарифы"-->
     <section id="tarifs">
       <h1>Тарифы</h1>
@@ -198,6 +212,7 @@
     <!-- Раздел "Контакты"-->
     <section id="contact">
       <!-- Карты-->
+
       <head>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -214,14 +229,14 @@
       <body>
         <h1>Парковки:</h1>
         <form id="parking-form">
-          <label for="service-select">Выберите услугу:</label>
+          <label for="service-select" id="service-select1">Выберите услугу:</label>
           <select id="service-select" name="Тип_услуги" required>
             <option value="">Выберите услугу</option>
             <option value="1">Резервирование</option>
             <option value="2">Бронь на месяц</option>
             <option value="3">Бронь на год</option>
           </select>
-          <label for="Место">Место:</label>
+          <label for="Место" id="место1">Место:</label>
           <input type="text" id="место" name="Место" required>
           <label for="date-input-1" id="date-input-11">Дата въезда:</label>
           <input type="date" id="date-input-1" name="Дата_въезда" readonly="true" required>
@@ -229,9 +244,23 @@
           <div id="parking-status"></div>
           <ul id="reserved-spaces-list"></ul>
         </form>
-       
+
       </body>
     </section>
+    <script>
+
+      if (!sessionStorage.getItem("Login")) {
+        document.getElementById("service-select1").style.display = "none";
+        document.getElementById("service-select").style.display = "none";
+        document.getElementById("место1").style.display = "none";
+
+        document.getElementById("место").style.display = "none";
+        document.getElementById("date-input-11").style.display = "none";
+        document.getElementById("date-input-1").style.display = "none";
+        document.querySelector('#parking-form button').style.display = 'none';
+      }
+
+    </script>
     <script src="script.js"></script>
 </body>
 
