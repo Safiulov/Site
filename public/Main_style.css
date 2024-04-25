@@ -1,0 +1,692 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Poppins', sans-serif;
+}
+
+header {
+  position: fixed; /* Change the position property to fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 100px;
+  background: linear-gradient(#1111113a, #6408172f);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  text-shadow: 0 0 10px #ffffff,
+    0 0 42px #0fa,
+    0 0 62px #0fa,
+    0 0 102px #0fa;
+}
+
+
+.logo {
+  font-size: 25px;
+  color: #fff;
+  text-decoration: none;
+
+}
+
+nav a {
+  font-size: 20px;
+  color: #e2e2e2;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 35px;
+  transition: .3s;
+}
+
+nav a:hover,
+nav a.active {
+  color: #03ffdd;
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url('https://images.wallpaperscraft.ru/image/single/parkovka_kolonny_zdanie_813549_2560x1600.jpg');
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 20px;
+  background-size: cover;
+
+}
+
+#home {
+  background-image: url('https://cdn.motor1.com/images/mgl/ZL6p2/s1/2018-audi-a8-rendering.jpg');
+  background-size: cover;
+  animation: fade-in 1.2s ease-out;
+}
+
+#about {
+  background-image: url('https://i.artfile.ru/1920x1080_1614431_[www.ArtFile.ru].jpg');
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+#update-form button,
+#update-form2 button {
+  background-color: #007bff;
+  /* Blue background color */
+  border: none;
+  /* No border */
+  color: white;
+  /* White text color */
+  padding: 5px 10px;
+  /* Padding for comfortable clicking */
+  text-align: center;
+  /* Centered text */
+  text-decoration: none;
+  /* No text decoration */
+  display: inline-block;
+  /* Inline-block display for proper width and height */
+  font-size: 16px;
+  /* Font size */
+  margin: 4px 2px;
+  /* Margins for spacing */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  transition: background-color 0.3s ease;
+  /* Smooth transition for background color */
+}
+
+#update-form button:hover,
+#update-form2 button:hover {
+  background-color: #0056b3;
+  /* Darker blue background color on hover */
+}
+
+section h1 {
+  font-size: 50px;
+  margin-top: 15px;
+
+}
+
+section p {
+  font-size: 20px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.services-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 75%;
+
+  overflow-x: scroll;
+  user-select: none;
+
+
+}
+
+
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+
+}
+
+.service-card {
+  position: relative;
+  font-weight: 600;
+  padding-bottom: 50%;
+  padding-right: 60%;
+  background-position: center;
+  background-size: cover;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  min-width: 650px;
+}
+
+@media screen and (max-width: 780px) {
+  .service-card {
+    min-width: 400px;
+    min-height: 500px;
+  }
+}
+
+
+.service-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.service-card:hover {
+  transform: scale(1.05);
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease;
+}
+
+.service-card:hover::before {
+  opacity: 0;
+}
+
+.service-card h2 {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  margin: 1rem;
+  color: white;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover h2 {
+  opacity: 0;
+}
+
+.service-card p {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 2rem;
+  color: rgb(255, 255, 255);
+  font-size: 1.25rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-shadow: 0 0 1em rgb(1, 1, 78), 0 0 0.2em rgb(0, 0, 0);
+}
+
+.service-card:hover p {
+  opacity: 1;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+
+
+.card {
+  position: relative;
+  width: 500px;
+  height: 350px;
+  perspective: 1000px;
+  margin: 20px;
+  transition: transform 1s;
+}
+
+
+@media screen and (max-width: 900px) {
+  .card {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+
+.front,
+.back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+  background-color: #8a737349;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.7s;
+}
+
+.back {
+  transform: rotateY(180deg);
+
+}
+
+.service-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.301);
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.service-button:hover {
+  transform: translateY(-5px);
+}
+
+
+.back p {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style: oblique;
+  text-shadow: 0 0 10px #5c5252,
+    0 0 42px rgb(252, 252, 252),
+    0 0 102px rgb(255, 255, 255),
+    0 0 151px rgb(255, 255, 255);
+  ;
+  ;
+}
+
+.back h2,
+.front h2 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  font-style: italic;
+  text-shadow: 0 0 10px #fff,
+    0 0 42px rgb(5, 18, 136),
+    0 0 102px rgb(5, 18, 136),
+    0 0 151px rgb(9, 3, 83);
+  ;
+}
+
+.card.flip .front {
+  transform: rotateY(180deg);
+}
+
+.card.flip .back {
+  transform: rotateY(0deg);
+}
+
+.leaflet-routing-container {
+  background-color: rgba(5, 5, 5, 0.473);
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  width: 400px;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.card-container2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+.card2.flip .back {
+  transform: rotateY(0deg);
+}
+
+.card2.flip .front {
+  transform: rotateY(180deg);
+}
+
+.card2 {
+  position: relative;
+  width: 700px;
+  height: 700px;
+  perspective: 1000px;
+  margin: 20px;
+
+
+}
+
+@media screen and (max-width: 1400px) {
+  .card2 {
+    width: 650px;
+    height: 650px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .card2 {
+    width: 550px;
+    height: 600px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .card2 {
+    width: 550px;
+    height: 550px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .card2 {
+    width: 400px;
+    height: 450px;
+  }
+}
+
+
+.card2.flip .flip-icon {
+  transform: rotateY(180deg);
+}
+
+.card2 .front,
+.card2 .back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: transform 1s;
+}
+
+.card2 .front {
+  background-color: #ffffff41;
+}
+
+.card2 .back {
+  background-color: #ffffff52;
+
+
+}
+
+.flip-icon {
+  position: absolute;
+  top: 2%;
+  right: 10px;
+  font-size: 0.9rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.front p {
+  font-size: 2vw;
+}
+
+.back form {
+  display: flex;
+  flex-direction: column;
+  font-size: 2vw;
+  padding-top: 15px;
+
+
+}
+
+.back input {
+  padding: 5px;
+  border: 1px solid #ffffff42;
+  border-radius: 3px;
+  padding: 3px;
+
+}
+
+
+
+
+
+@media screen and (max-width:1200px) {
+  .back label {
+    font-size: 2.35vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .back h1 {
+    font-size: 2.4vw;
+  }
+}
+
+
+@media screen and (max-width:800px) {
+  .back label {
+    font-size: 3.5vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .back h1 {
+    font-size: 3.5vw;
+  }
+}
+
+
+@media screen and (max-width:1200px) {
+  .front p {
+    font-size: 2.35vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .front h1 {
+    font-size: 2.4vw;
+  }
+}
+
+
+@media screen and (max-width:800px) {
+  .front p {
+    font-size: 3.5vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .front h1 {
+    font-size: 3.5vw;
+  }
+}
+
+
+
+
+#reserve {
+  background-color: #f2f2f2;
+  padding: 50px;
+  text-align: center;
+
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#reserve h1 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+  color: #ffffff;
+  text-shadow: 0 0 10px #ffffff,
+    0 0 42px #0fa,
+    0 0 62px #0fa,
+    0 0 102px #0fa;
+  ;
+}
+
+#parking-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+  justify-content: space-between;
+
+}
+
+#parking-form label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #f8f8f8;
+  text-shadow: 0 0 10px #ffffff,
+    0 0 42px #0fa,
+    0 0 62px #0fa,
+    0 0 102px #0fa;
+  ;
+  flex-basis: calc(30% - 20px);
+}
+
+#parking-form input[type="text"],
+#parking-form input[type="datetime-local"],
+#parking-form input[type="date"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  width: 100%;
+  box-sizing: border-box;
+  flex-basis: calc(30% - 20px);
+
+}
+
+#parking-form button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex-basis: calc(30% - 20px);
+  margin-top: 15px;
+  text-shadow: 0 0 10px #ffffff,
+    0 0 42px #0fa,
+    0 0 62px #0fa,
+    0 0 102px #0fa;
+  ;
+}
+
+#parking-form button:hover {
+  background-color: #444;
+}
+
+#parking-status {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.parking-spot {
+  background-color: #ffc400;
+  color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 30%;
+  text-align: center;
+
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+@media screen and (max-width: 800px) {
+  .parking-spot {
+    width: 300px;
+    height: 50px;
+
+
+
+  }
+}
+
+.free {
+  background-color: green;
+}
+
+.occupied {
+  background-color: red;
+}
+
+
+/* CSS для parking-type */
+#parking-type {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+
+}
+
+/* CSS для опций в parking-type */
+#parking-type option {
+  padding: 5px;
+}
+
+/* CSS для выделенной опции в parking-type */
+#parking-type option:checked {
+  background-color: #ddd;
+}
+
+/* Общий стиль для выпадающих списков */
+select {
+  font-size: 16px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+/* Стиль для выпадающего списка "parking-spot-select" */
+#parking-spot-select {
+  width: 100%;
+  max-width: 300px;
+
+}
+
+#reserved-spaces-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: #ffffff1a;
+  border-radius: 5px;
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-style: italic;
+  font-size: 20px;
+}
+
+#reserved-spaces-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #ffffff1a;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#reserved-spaces-list li:hover {
+  background-color: #ffffff3a;
+}
+
+
