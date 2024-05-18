@@ -26,6 +26,11 @@ let transporter = nodemailer.createTransport({
     pass: 'mbik ayka qplr dqvc'
   }
 });
+const https = require('https');
+
+const agent = new https.Agent({
+  rejectUnauthorized: false,
+});
 app.post('/reset-password', (req, res) => {
   let mailOptions = {
     from: 'safiulov17@gmail.com',
@@ -62,7 +67,7 @@ app.post('/check-login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const response = await axios.get(`http://localhost:5100/api/Site/Check-login?columnValue=${username}`);
+    const response = await axios.get(`https://localhost:5100/api/Site/Check-login?columnValue=${username}`,{httpsAgent: agent});
     const result = response.data;
 
     if (result.length > 0) {
@@ -97,7 +102,7 @@ app.post('/check-login', async (req, res) => {
 
 async function checkUsername(username) {
   try {
-    const response = await axios.get(`http://localhost:5100/api/Site/Checkusername?columnValue=${username}`);
+    const response = await axios.get(`https://localhost:5100/api/Site/Checkusername?columnValue=${username}`,{httpsAgent: agent});
     if (response.data.length > 0) {
       return ({ success: false, error: 'Такой логин уже занят' });
     } else {
@@ -111,7 +116,7 @@ async function checkUsername(username) {
 async function checkPassword(password) {
   try {
     
-    const response = await axios.get(`http://localhost:5100/api/Site/Checkpassword?columnValue=${password}`);
+    const response = await axios.get(`https://localhost:5100/api/Site/Checkpassword?columnValue=${password}`,{httpsAgent: agent});
     if (response.data.length > 0) {
       return { success: false, message: 'Такой пароль уже существует' };
     } else {
@@ -132,7 +137,7 @@ app.post('/register', async (req, res) => {
   
   try {
    
-    const response = await axios.post(`http://localhost:5100/api/Site/`, {логин:Логин, пароль:Пароль, фио:ФИО, дата_рождения:Дата_рождения, почта:Почта, марка:Марка, цвет:Цвет, тип:Тип, госномер:Госномер, год:Год});
+    const response = await axios.post(`https://localhost:5100/api/Site/AddClientAndCar`, {логин:Логин, пароль:Пароль, фио:ФИО, дата_рождения:Дата_рождения, почта:Почта, марка:Марка, цвет:Цвет, тип:Тип, госномер:Госномер, год:Год},{httpsAgent: agent});
 
     res.json({ success: true });
   } catch (err) {
@@ -147,7 +152,7 @@ app.put('/update', async (req, res) => {
 
   try {
    
-    const response = await axios.put(`http://localhost:5100/api/Site/Update_klient`, {oldLogin:Логин, fio:ФИО,email:Почта,newLogin:НовыйЛогин});
+    const response = await axios.put(`https://localhost:5100/api/Site/Update_klient`, {oldLogin:Логин, fio:ФИО,email:Почта,newLogin:НовыйЛогин},{httpsAgent: agent});
 
     res.json({ success: true });
   } catch (err) {
@@ -161,7 +166,7 @@ app.put('/update2', async (req, res) => {
   const { Марка, Цвет, Тип, Госномер, Год,Логин } = req.body;
 
   try {
-    const response = await axios.put(`http://localhost:5100/api/Site/Update_auto`, {марка:Марка,цвет:Цвет,тип:Тип,госномер:Госномер,год:Год,логин:Логин });
+    const response = await axios.put(`https://localhost:5100/api/Site/Update_auto`, {марка:Марка,цвет:Цвет,тип:Тип,госномер:Госномер,год:Год,логин:Логин },{httpsAgent: agent});
 
 
     res.json({ success: true });
@@ -174,7 +179,7 @@ app.put('/update2', async (req, res) => {
 
   app.get('/parking-status', async (req, res) => {
     try {
-      const result = await axios.get('http://localhost:5100/api/Spaces/all');
+      const result = await axios.get('https://localhost:5100/api/Spaces',{httpsAgent:agent});
       res.json(result.data);
     } catch (err) {
       console.error(err);
@@ -186,16 +191,16 @@ app.put('/update2', async (req, res) => {
   
     try {
         // Проверка доступности места
-        const availability = await axios.get(`http://localhost:5100/api/Site/check-availability?place=${Место}`);
+        const availability = await axios.get(`https://localhost:5100/api/Site/check-availability?place=${Место}`,{httpsAgent: agent});
        
         
         // Проверка резервации места
-        const reservation = await axios.get(`http://localhost:5100/api/Site/check-reserve?place=${Место}`);
+        const reservation = await axios.get(`https://localhost:5100/api/Site/check-reserve?place=${Место}`,{httpsAgent: agent});
     
         
         
         // Добавление машины
-        await axios.post(`http://localhost:5100/api/Site/add-vehicle`, {код:Тип_услуги,место:Место,дата:Дата_въезда,логин:Логин});
+        await axios.post(`https://localhost:5100/api/Site/add-vehicle`, {код:Тип_услуги,место:Место,дата:Дата_въезда,логин:Логин},{httpsAgent: agent});
         
         // Возврат успеха
         res.json({ success: true});
@@ -209,7 +214,7 @@ app.get('/reserved-spaces', async (req, res) => {
   const { username } = req.query;
 
   try {
-    const response = await axios.get(`http://localhost:5100/api/Site/Search_klient?columnValue=${username}`);
+    const response = await axios.get(`https://localhost:5100/api/Site/Search_klient?columnValue=${username}`,{httpsAgent:agent});
     const result = response.data;
     res.json(result);
   } catch (err) {
@@ -223,7 +228,7 @@ app.get('/reserved-spaces', async (req, res) => {
 app.put('/change-password', async (req, res) => {
   const { newPassword , email } = req.body;
   try { 
-    const response = await axios.put(`http://localhost:5100/api/Site/change-password`, {newPassword:newPassword,email:email });
+    const response = await axios.put(`https://localhost:5100/api/Site/change-password`, {newPassword:newPassword,email:email },{httpsAgent: agent});
     const result = response.data;
     res.json(result);
   } catch (err) {
@@ -238,7 +243,7 @@ app.post('/check-email', async (req, res) => {
 
     try {
 
-      const response = await axios.post(`http://localhost:5100/api/Site/check-email`, { email:email});
+      const response = await axios.post(`https://localhost:5100/api/Site/check-email`, { email:email},{httpsAgent: agent});
   
       res.json({ success: true });
     } catch (err) {
