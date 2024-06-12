@@ -190,25 +190,42 @@ app.put('/update2', async (req, res) => {
     const { Место, Дата_въезда, Логин, Тип_услуги } = req.body;
   
     try {
-        // Проверка доступности места
-        const availability = await axios.get(`https://localhost:5100/api/Site/check-availability?place=${Место}`,{httpsAgent: agent});
-       
-        
-        // Проверка резервации места
-        const reservation = await axios.get(`https://localhost:5100/api/Site/check-reserve?place=${Место}`,{httpsAgent: agent});
-    
-        
-        
-        // Добавление машины
-        await axios.post(`https://localhost:5100/api/Site/add-vehicle`, {код:Тип_услуги,место:Место,дата:Дата_въезда,логин:Логин},{httpsAgent: agent});
-        
-        // Возврат успеха
-        res.json({ success: true});
-      } catch (err) {
-        console.error(err);
-        res.status(500).json({success:false});
+      // Проверка доступности места
+      const availabilityResponse = await axios.get(`https://localhost:5100/api/Site/check-availability`, {
+        params: { place: Место },
+        httpsAgent: agent,
+      });
+  
+      if (availabilityResponse.data.available) {
+        throw new Error('Место занято');
       }
-});
+  
+      // Проверка резервации места
+      const reservationResponse = await axios.get(`https://localhost:5100/api/Site/check-reserve`, {
+        params: { place: Место },
+        httpsAgent: agent,
+      });
+  
+      if (reservationResponse.data.reserved) {
+        throw new Error('Место зарезервировано');
+      }
+  
+      // Добавление машины
+      await axios.post(`https://localhost:5100/api/Site/add-vehicle`, {
+        код: Тип_услуги,
+        место: Место,
+        дата: Дата_въезда,
+        логин: Логин,
+      }, { httpsAgent: agent });
+  
+      // Возврат успеха
+      res.json({ success: true });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ success: false });
+    }
+  });
+
 
 app.get('/reserved-spaces', async (req, res) => {
   const { username } = req.query;

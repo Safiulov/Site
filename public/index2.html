@@ -28,51 +28,7 @@
             <button id="forgot-password-button" type="button">Забыли пароль?</button>
           </div>
         </form>
-        <script>
-          // Добавляем обработчик событий на кнопку "забыли пароль?"
-          document.getElementById("forgot-password-button").addEventListener("click", function () {
-            // Открываем страницу "забыли пароль?"
-            openIndex2();
-          });
-
-          function openIndex2() {
-            window.location.href = "index3.html";
-          }
-          // Функция для обработки отправки формы входа
-          function login(event) {
-            // Получаем значения полей ввода логина и пароля
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-            // Send a request to the server to check if the username and password are correct
-            fetch('/check-login', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ username, password })
-            })
-              .then(response => response.json())
-              .then(data => {
-                if (data.success) {
-                  // Сохраняем значение входа в хранилище сеанса
-                  sessionStorage.setItem("Fio", data.Fio);
-                  sessionStorage.setItem("Email", data.Email);
-                  sessionStorage.setItem("Login", data.Login);
-                  sessionStorage.setItem("Password", data.Password);
-                  sessionStorage.setItem("Marka", data.Marka);
-                  sessionStorage.setItem("Color", data.Color);
-                  sessionStorage.setItem("Type", data.Type);
-                  sessionStorage.setItem("Number", data.Number);
-                  sessionStorage.setItem("Year", data.Year);
-                  // Перенаправление на главную страницу
-                  window.location.href = "index.html";
-                } else {
-                  alert("Invalid username or password");
-                }
-              });
-          }
-        </script>
-      </div>
+       </div>
       <!-- Форма регистрации -->
       <div class="register">
         <form class="form" onsubmit="event.preventDefault(); register(event)">
@@ -88,47 +44,12 @@
           <input class="input" type="text" name="Цвет" placeholder="Цвет" required>
           <input class="input" type="text" name="Тип" placeholder="Тип" required>
           <input class="input" type="text" name="Госномер" placeholder="Госномер" required>
-          <input class="input" type="text" name="Год" placeholder="Год" required>
+          <input class="input" type="text" name="Год" placeholder="Год > 1950" required>
           <!-- Кнопка отправки формы регистрации -->
           <button type="submit">Зарегистрироваться</button>
         </form>
-        <script>
-          // Функция для обработки отправки формы регистрации
-          function register(event) {
-            // Получаем данные из формы регистрации
-            const formData = new FormData(event.target);
-            const data = {
-              Логин: formData.get('Логин'),
-              Пароль: formData.get('Пароль'),
-              ФИО: formData.get('ФИО'),
-              Дата_рождения: formData.get('Дата_рождения'),
-              Почта: formData.get('Почта'),
-              Марка: formData.get('Марка'),
-              Цвет: formData.get('Цвет'),
-              Тип: formData.get('Тип'),
-              Госномер: formData.get('Госномер'),
-              Год: formData.get('Год')
-            };
-            // Отправляем запрос на сервер для регистрации пользователя
-            fetch('/register', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(Object.fromEntries(formData.entries()))
-            })
-              .then(response => response.json())
-              .then(data => {
-                if (data.success) {
-                  // Если регистрация прошла успешно, переключаемся на форму входа
-                  document.querySelector('label[for="chk"]').click();
-                } else {
-                  alert('Измените логин');
-
-                }
-              });
-          }
-        </script>
+        <script src="script2.js"></script>
+        
         </form>
       </div>
     </div>

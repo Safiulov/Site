@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="Main_style.css">
   <title>Личный кабинет</title>
-
 </head>
-
 <body>
   <header>
     <!-- Создание верхнего меню -->
@@ -19,9 +16,8 @@
       <a href="#services">Услуги</a>
       <a href="#contact">Контакты</a>
       <a href="#reserve">Бронь</a>
-
       <script>
-       // Check if the user is logged in
+        // Check if the user is logged in
         if (sessionStorage.getItem("Login")) {
           // Display the "Выйти" button
           document.write('<a href="#" onclick="logout()">Выйти</a>');
@@ -83,16 +79,16 @@
               <input type="text" id="marka" name="marka" value="" placeholder="example">
               <br>
               <label for="color">Цвет:</label>
-              <input type="text" id="color" name="color" value="" placeholder="example@example.com">
+              <input type="text" id="color" name="color" value="" placeholder="example">
               <br>
               <label for="type">Тип:</label>
               <input type="text" id="type" name="type" value="" placeholder="example">
               <br>
               <label for="number">Госномер:</label>
-              <input type="text" id="number" name="number" value="" placeholder="example">
+              <input type="text" id="number" name="number" value="" placeholder="A000AA">
               <br>
               <label for="year">Год:</label>
-              <input type="year" id="year" name="year" value="" placeholder="example">
+              <input type="year" id="year" name="year" value="" placeholder="0000">
               <br>
               <button type="submit">Сохранить изменения</button>
             </form>
@@ -109,7 +105,6 @@
           document.getElementById("update-form").style.display = "none";
         }
       }
-
       function showEditForm2() {
         if (!sessionStorage.getItem("Login")) {
           document.getElementById("update-form2").style.display = "none";
@@ -164,7 +159,7 @@
             <h2>Описание</h2>
             <button class="service-button">Назад</button>
             <p>Парковка на сутки и более...</p>
-            <p>Цена: 1000 рублей/сутки </p>
+            <p>Цена: 100 рублей/сутки </p>
           </div>
         </div>
         <div class="card">
@@ -212,7 +207,6 @@
     <!-- Раздел "Контакты"-->
     <section id="contact">
       <!-- Карты-->
-
       <head>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -225,7 +219,6 @@
     </section>
     <!-- Раздел "Бронирование мест" -->
     <section id="reserve">
-
       <body>
         <h1>Парковки:</h1>
         <form id="parking-form">
@@ -244,24 +237,19 @@
           <div id="parking-status"></div>
           <ul id="reserved-spaces-list"></ul>
         </form>
-
       </body>
     </section>
     <script>
-
       if (!sessionStorage.getItem("Login")) {
         document.getElementById("service-select1").style.display = "none";
         document.getElementById("service-select").style.display = "none";
         document.getElementById("место1").style.display = "none";
-
         document.getElementById("место").style.display = "none";
         document.getElementById("date-input-11").style.display = "none";
         document.getElementById("date-input-1").style.display = "none";
         document.querySelector('#parking-form button').style.display = 'none';
       }
-
     </script>
     <script src="script.js"></script>
 </body>
-
 </html>

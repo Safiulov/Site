@@ -136,8 +136,6 @@ updateUserForm.addEventListener("submit", async (event) => {
       // Обновление данных в сессионном хранилище и на странице
       updateUserData(fio, email);
       updateLogin(newLogin);
-      // Перезагрузка страницы после успешного редактирования данных
-      window.location.reload();
     } else {
       alert("Измените логин...");
       const error = await response.json();
@@ -181,8 +179,6 @@ updateCarForm.addEventListener("submit", async (event) => {
       alert("Данные обновлены");
       // Обновление данных в сессионном хранилище и на странице
       updateCarData(marka, color, type, number, year);
-         // Перезагрузка страницы после успешного редактирования данных
-         window.location.reload();
     } else {
       throw new Error("Ошибка при обновлении");
     }
@@ -227,11 +223,13 @@ async function getReservedSpaces() {
     const response = await fetch(`/reserved-spaces?username=${username}`);
     const data = await response.json();
     if (response.ok) {
-      const reservedSpacesList = document.getElementById(
-        "reserved-spaces-list"
-      );
+      const reservedSpacesList = document.getElementById("reserved-spaces-list");
       reservedSpacesList.innerHTML = ""; // Очистка списка зарезервированных мест
-      data.forEach((space) => {
+
+      // Фильтрация данных по услуге
+      const filteredData = data.filter(space => space.название_услуги === "Абонемент МЕС" || space.название_услуги === "Абонемент Г");
+
+      filteredData.forEach((space) => {
         const li = document.createElement("li");
         const date = new Date(space.дата_въезда).toLocaleString("ru-RU", {
           year: "numeric",
@@ -240,7 +238,7 @@ async function getReservedSpaces() {
           hour: "2-digit",
           minute: "2-digit",
         });
-        const text = `Место: ${space.место}, Дата выезда: ${date}, Услуга: ${space.название_услуги}`;
+        const text = `Место: ${space.место}, Дата выезда до: ${date}, Услуга: ${space.название_услуги}`;
         li.textContent = text;
         reservedSpacesList.appendChild(li);
       });
@@ -255,6 +253,31 @@ async function getReservedSpaces() {
 }
 
 // Обработчик события изменения выбранной услуги
+document
+  .getElementById("service-select")
+  .addEventListener("change", function () {
+    if (this.value === "2") {
+      const today = new Date();
+      const oneMonthFromNow = new Date();
+      oneMonthFromNow.setMonth(today.getMonth() + 1);
+      const dateInput = document.getElementById("date-input-1");
+      dateInput.valueAsDate = oneMonthFromNow;
+      dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, -8);
+    } else if (this.value === "3") {
+      const today = new Date();
+      const oneYearFromNow = new Date();
+      oneYearFromNow.setFullYear(today.getFullYear() + 1);
+      const dateInput = document.getElementById("date-input-1");
+      dateInput.valueAsDate = oneYearFromNow;
+      dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, -8);
+    }
+  });
+
+// Обработчик события изменения выбранной услуги
 const serviceSelect = document.getElementById("service-select");
 const dateInput = document.getElementById("date-input-1");
 
@@ -263,12 +286,11 @@ serviceSelect.addEventListener("change", (event) => {
     const today = new Date();
     dateInput.type = "datetime-local";
     dateInput.readOnly = false;
-    dateInput.min = new Date(today.getTime() + 24 * 60 * 60 * 1000)
+    dateInput.min = new Date(today.getTime() + 24 * 60 * 60)
       .toISOString()
       .slice(0, -8);
   } else {
     dateInput.type = "date";
-    dateInput.readOnly = true; // Add this line to reset the readOnly property
     if (event.target.value === "2") {
       const today = new Date();
       const oneMonthFromNow = new Date();
@@ -298,6 +320,7 @@ serviceSelect.addEventListener("change", (event) => {
     }
   }
 });
+
 // Обработчик события загрузки документа
 document.addEventListener("DOMContentLoaded", () => {
   const parkingStatus = document.getElementById("parking-status");
@@ -337,6 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("date-input-1").value = "";
         document.getElementById("service-select").value = "";
 
+       
         // Обновление статуса парковки на странице
         fetch("/parking-status")
           .then((res) => res.json())
@@ -370,7 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Обновление статуса парковки на странице 
+  // Обновление статуса парковки на странице при загрузке документа
   fetch("/parking-status")
     .then((res) => res.json())
     .then((data) => {
@@ -391,7 +415,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert(error.message);
     });
 
-  // Обновление списка зарезервированных мест 
+  // Обновление списка зарезервированных мест при загрузке документа
   getReservedSpaces();
 });
 
@@ -468,5 +492,3 @@ function logout() {
   sessionStorage.clear();
   location.reload();
 }
-
-
